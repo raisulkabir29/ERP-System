@@ -1,0 +1,1320 @@
+@model HRMS.Models.User
+@{
+    ViewBag.Title = "Advance Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/DataTable/new/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTable/new/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section ScriptsOrCss
+{
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/tabs/Jquery-ui.js"></script>
+    <link href="~/Content/tabs/JqueryUi.css" rel="stylesheet" />
+    <script>
+        $(function () {
+
+            $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+            $("#opener").click(function () {
+                $("#dialog").dialog("open");
+            });
+
+        });
+    </script>
+
+    <style>
+        table {
+            width: 100% !important;
+        }
+
+        .ui-tabs-vertical {
+            width: 100%;
+        }
+
+            .ui-tabs-vertical .ui-tabs-nav {
+                padding: .2em .1em .2em .2em;
+                float: left;
+                width: 19%;
+            }
+
+                .ui-tabs-vertical .ui-tabs-nav li {
+                    clear: left;
+                    width: 100%;
+                    border-bottom-width: 1px !important;
+                    border-right-width: 0 !important;
+                    margin: 0 -1px .2em 0;
+                }
+
+                    .ui-tabs-vertical .ui-tabs-nav li a {
+                        display: block;
+                    }
+
+                    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                        padding-bottom: 0;
+                        padding-right: .1em;
+                        border-right-width: 1px;
+                    }
+
+            .ui-tabs-vertical .ui-tabs-panel {
+                padding: 1em;
+                float: right;
+                width: 80%;
+            }
+    </style>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+</section>
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+
+    $(function () {
+        $('#Password').attr('type', 'password');
+    });
+
+    function ShowHidePwd3() {
+        var x = document.getElementById("Password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+@Html.StarkAjaxFormSubmiter("frmUser", "tbUser", true, "Action Successfully Executed")
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid box-primary">
+
+
+                <div id="tabs">
+                    @*<ul>
+                            <li><a href="#EditThis">Edit</a></li>
+                            <li><a href="#RoleUser">Role User</a></li>
+                            <li><a href="#DepartmentUser">Department User</a></li>
+                            <li><a href="#MenuPermission">Menu Permission</a></li>
+                            <li><a href="#UserPayrollSalary">User Payroll Salary</a></li>
+                            <li><a href="#UserAllocation">User Allocation</a></li>
+                            <li><a href="#UserTermination">User Termination</a></li>
+                            <li><a href="#UserAwards">User Awards</a></li>
+                            <li><a href="#UserTravels">User Travels</a></li>
+                            <li><a href="#UserSkill">User Skill</a></li>
+                            <li><a href="#UserAddress">User Address</a></li>
+                            <li><a href="#UserPhone">User Phone</a></li>
+                            <li><a href="#UserEmail">User Email</a></li>
+                            <li><a href="#UserEducation">User Education</a></li>
+                            <li><a href="#UserAttendence">User Attendence</a></li>
+                            <li><a href="#UserLeaveApplication">User Leave Application</a></li>
+                            <li><a href="#UserLanguage">User Language</a></li>
+                            <li><a href="#UserWorkExperience">User Work Experience</a></li>
+                            <li><a href="#UserSalaryTransaction">User Salary Transaction</a></li>
+                            <li><a href="#UserPromotion">User Promotion</a></li>
+                        </ul>*@
+                    <div id="EditThis" style="height:700px;overflow:auto;">
+                        @using (Html.BeginForm("MultiViewIndex", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUser" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (ViewBag.IsWorking > 0)
+                            {
+                                <section class="content">
+                                    <!-- Small boxes (Stat box) -->
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="box box-solid box-primary">
+                                                <div class="box-header">
+                                                    <h3 class="box-title">Edit User Info</h3>
+                                                </div><!-- /.box-header -->
+                                                <!-- form start -->
+                                                <div role="form">
+                                                    <div class="box-body">
+                                                        <div class="alert alert-success alert-dismissable" id="dvMsg" style="display:@(TempData["Display"]==null ? "none" : "")">
+                                                            <i class="fa fa-apple"></i>
+                                                            <b> Update Successfully. </b>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UserName, new { @class = "" })
+                                                            @Html.EditorFor(model => model.UserName)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Password, new { @class = "" })
+                                                            @Html.EditorFor(model => model.Password)
+                                                            <br>
+                                                            <input type="checkbox" onclick="ShowHidePwd3()">Show/Hide Password
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.CustomId, new { @class = "" })
+                                                            @Html.EditorFor(model => model.CustomId)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.GenderId, new { @class = "" })
+                                                            @Html.DropDownList("GenderId", " -Select- ")
+                                                            @Html.StarkDropDownAjaxLink("/Gender/Create", "AddMore", "")
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DateOfBirth, new { @class = "" })
+                                                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "" } })
+                                                            <script>$(function () { $("#DateOfBirth").datepicker({ format: 'd/m/yy' }); });</script>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.BloodGroup, new { @class = "" })
+                                                            @Html.EditorFor(model => model.BloodGroup)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Nationality, new { @class = "" })
+                                                            @Html.EditorFor(model => model.Nationality)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.FirstName, new { @class = "" })
+                                                            @Html.EditorFor(model => model.FirstName)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.LastName, new { @class = "" })
+                                                            @Html.EditorFor(model => model.LastName)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.CanLogin, new { @class = "" })
+                                                            @Html.EditorFor(model => model.CanLogin)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IsActive, new { @class = "" })
+                                                            @Html.EditorFor(model => model.IsActive)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ProfilePicture, new { @class = "" })
+                                                            <input id="ProfilePicture" name="ProfilePicture" type="file" />
+                                                            <input type="hidden" name="HideImage1" value="@Model.ProfilePicture" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.OfficeId, new { @class = "" })
+                                                            @Html.DropDownList("OfficeId", " -Select- ")
+                                                            @Html.StarkDropDownAjaxLink("/Office/Create", "AddMore", "")
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.NationalId, new { @class = "" })
+                                                            @Html.EditorFor(model => model.NationalId)
+                                                        </div>
+                                                        @Html.HiddenFor(model => model.DateAdded)
+                                                        @Html.HiddenFor(model => model.AddedBy)
+                                                        @Html.Hidden("ModifiedDate", DateTime.Now)
+                                                        @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                                                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            }
+                        }
+                    </div>
+
+                    @*<div id="RoleUser" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/RoleUser/Create", "StarkRoleUser")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbRoleUser" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> S.No </th>
+                                                <th> Role </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="DepartmentUser" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/DepartmentUser/Create", "StarkDepartmentUser")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbDepartmentUser" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> S.No </th>
+                                                <th> Department </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="MenuPermission" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/MenuPermission/Create", "StarkMenuPermission")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbMenuPermission" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Is Create </th>
+                                                <th> Is Read </th>
+                                                <th> Is Update </th>
+                                                <th> Is Delete </th>
+                                                <th> S.No </th>
+                                                <th> Sort Order </th>
+                                                <th> Role </th>
+                                                <th> User </th>
+                                                <th> Menu </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserPayrollSalary" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserPayrollSalary/Create", "StarkUserPayrollSalary")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserPayrollSalary" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Basic </th>
+                                                <th> Special Allowance </th>
+                                                <th> Bonus </th>
+                                                <th> Provident Fund </th>
+                                                <th> Professional Tax </th>
+                                                <th> Lunch Recovery </th>
+                                                <th> Transport Recovery </th>
+                                                <th> Travelling Allowance </th>
+                                                <th> Dearness Allowance </th>
+                                                <th> Income Tax </th>
+                                                <th> Total Amount </th>
+                                                <th> Total Deduction </th>
+                                                <th> Net Amount </th>
+                                                <th> House Rent Allowance </th>
+                                                <th> Medical Allowance </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserAllocation" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserAllocation/Create", "StarkUserAllocation")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserAllocation" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Allocation From </th>
+                                                <th> Allocation To </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                                <th> Superior User </th>
+                                                <th> Office </th>
+                                                <th> Job Title </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserTermination" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserTermination/Create", "StarkUserTermination")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserTermination" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Termination Reason </th>
+                                                <th> Is Resignation </th>
+                                                <th> Notice Date </th>
+                                                <th> Termination Date </th>
+                                                <th> Resignation Approve Date </th>
+                                                <th> Description </th>
+                                                <th> Date Added </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserAwards" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserAwards/Create", "StarkUserAwards")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserAwards" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Award Type </th>
+                                                <th> Award Name </th>
+                                                <th> Photo </th>
+                                                <th> On Date </th>
+                                                <th> Description </th>
+                                                <th> Date Added </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserTravels" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserTravels/Create", "StarkUserTravels")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserTravels" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Purpose Of Visit </th>
+                                                <th> Place Of Visit </th>
+                                                <th> Travel By </th>
+                                                <th> Expected Travel Budget </th>
+                                                <th> Actual Travel Budget </th>
+                                                <th> Start Date </th>
+                                                <th> End Date </th>
+                                                <th> Description </th>
+                                                <th> Date Added </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserSkill" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserSkill/Create", "StarkUserSkill")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserSkill" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Skill Name </th>
+                                                <th> Rate Your Self </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserAddress" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserAddress/Create", "StarkUserAddress")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserAddress" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Line1 </th>
+                                                <th> Line2 </th>
+                                                <th> City </th>
+                                                <th> Pin Code </th>
+                                                <th> Near By </th>
+                                                <th> Is Emergency </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserPhone" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserPhone/Create", "StarkUserPhone")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserPhone" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Phone Number </th>
+                                                <th> Is Active </th>
+                                                <th> Is Emergency </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserEmail" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserEmail/Create", "StarkUserEmail")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserEmail" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Email Address </th>
+                                                <th> Is Active </th>
+                                                <th> Is Emergency </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserEducation" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserEducation/Create", "StarkUserEducation")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserEducation" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> From Date </th>
+                                                <th> To Date </th>
+                                                <th> Total Marks </th>
+                                                <th> Out Of Marks </th>
+                                                <th> Percentage </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                                <th> Digree </th>
+                                                <th> Institution </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserAttendence" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserAttendence/Create", "StarkUserAttendence")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserAttendence" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Any Remarks </th>
+                                                <th> Is Present </th>
+                                                <th> Date Of Attendence </th>
+                                                <th> Punch In </th>
+                                                <th> Punch Out </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                                <th> Company Office </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserLeaveApplication" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserLeaveApplication/Create", "StarkUserLeaveApplication")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserLeaveApplication" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Is Approved </th>
+                                                <th> Leave Active From </th>
+                                                <th> Leave Active To </th>
+                                                <th> Date Added </th>
+                                                <th> S.No </th>
+                                                <th> Approved By </th>
+                                                <th> User </th>
+                                                <th> Leave Type </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserLanguage" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserLanguage/Create", "StarkUserLanguage")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserLanguage" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Date Added </th>
+                                                <th> Date Modied </th>
+                                                <th> Modified By </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> Rate Your Self </th>
+                                                <th> User </th>
+                                                <th> Language </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserWorkExperience" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserWorkExperience/Create", "StarkUserWorkExperience")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserWorkExperience" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Describe Job </th>
+                                                <th> Company Name </th>
+                                                <th> Position </th>
+                                                <th> Is Current </th>
+                                                <th> From Date </th>
+                                                <th> To Date </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserSalaryTransaction" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserSalaryTransaction/Create", "StarkUserSalaryTransaction")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserSalaryTransaction" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> House Rent Allowance </th>
+                                                <th> Medical Allowance </th>
+                                                <th> Travelling Allowance </th>
+                                                <th> Dearness Allowance </th>
+                                                <th> Basic </th>
+                                                <th> Special Allowance </th>
+                                                <th> Bonus </th>
+                                                <th> Provident Fund </th>
+                                                <th> Professional Tax </th>
+                                                <th> Lunch Recovery </th>
+                                                <th> Transport Recovery </th>
+                                                <th> Income Tax </th>
+                                                <th> Total Amount </th>
+                                                <th> Total Deduction </th>
+                                                <th> Net Amount </th>
+                                                <th> On Date </th>
+                                                <th> Remarks </th>
+                                                <th> Date Added </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @*<div id="UserPromotion" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    @Html.StarkAjaxLink("Create New", "/UserPromotion/Create", "StarkUserPromotion")
+                                </div>
+                            </div>
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <table id="tbUserPromotion" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th> Promotion Title </th>
+                                                <th> Promotion Date </th>
+                                                <th> Description </th>
+                                                <th> Date Added </th>
+                                                <th> Added By </th>
+                                                <th> S.No </th>
+                                                <th> User </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div> <!-- .box-body -->
+                            </div> <!-- .box, .box-solid, .box-primary -->
+                        </div> <!-- #UserPromotion -->*@
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableRoleUser = "";
+        var ControlerNameRoleUser = "@Url.Content("~/RoleUser")";
+        // debugger;
+        oTableRoleUser = $("#tbRoleUser").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/RoleUserGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameRoleUser + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameRoleUser + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameRoleUser + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+    @*$(document).ready(function () {
+        var oTableDepartmentUser = "";
+        var ControlerNameDepartmentUser = "@Url.Content("~/DepartmentUser")";
+        // debugger;
+        oTableDepartmentUser = $("#tbDepartmentUser").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/DepartmentUserGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+                {
+                    "mRender": function (oObj, type, row) {
+                        var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameDepartmentUser + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                        buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameDepartmentUser + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                        buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameDepartmentUser + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                        return buttons;
+                    }
+
+                }, {}, {}, {}
+            ]
+        });
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableMenuPermission = "";
+        var ControlerNameMenuPermission = "@Url.Content("~/MenuPermission")";
+        // debugger;
+        oTableMenuPermission = $("#tbMenuPermission").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/MenuPermissionGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameMenuPermission + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameMenuPermission + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameMenuPermission + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserPayrollSalary = "";
+        var ControlerNameUserPayrollSalary = "@Url.Content("~/UserPayrollSalary")";
+        // debugger;
+        oTableUserPayrollSalary = $("#tbUserPayrollSalary").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserPayrollSalaryGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserPayrollSalary + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserPayrollSalary + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserPayrollSalary + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserAllocation = "";
+        var ControlerNameUserAllocation = "@Url.Content("~/UserAllocation")";
+        // debugger;
+        oTableUserAllocation = $("#tbUserAllocation").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserAllocationGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserAllocation + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserAllocation + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserAllocation + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserTermination = "";
+        var ControlerNameUserTermination = "@Url.Content("~/UserTermination")";
+        // debugger;
+        oTableUserTermination = $("#tbUserTermination").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserTerminationGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserTermination + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserTermination + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserTermination + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserAwards = "";
+        var ControlerNameUserAwards = "@Url.Content("~/UserAwards")";
+        // debugger;
+        oTableUserAwards = $("#tbUserAwards").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserAwardsGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserAwards + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserAwards + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserAwards + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserTravels = "";
+        var ControlerNameUserTravels = "@Url.Content("~/UserTravels")";
+        // debugger;
+        oTableUserTravels = $("#tbUserTravels").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserTravelsGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserTravels + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserTravels + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserTravels + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserSkill = "";
+        var ControlerNameUserSkill = "@Url.Content("~/UserSkill")";
+        // debugger;
+        oTableUserSkill = $("#tbUserSkill").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserSkillGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserSkill + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserSkill + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserSkill + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserAddress = "";
+        var ControlerNameUserAddress = "@Url.Content("~/UserAddress")";
+        // debugger;
+        oTableUserAddress = $("#tbUserAddress").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserAddressGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserAddress + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserAddress + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserAddress + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserPhone = "";
+        var ControlerNameUserPhone = "@Url.Content("~/UserPhone")";
+        // debugger;
+        oTableUserPhone = $("#tbUserPhone").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserPhoneGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserPhone + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserPhone + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserPhone + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserEmail = "";
+        var ControlerNameUserEmail = "@Url.Content("~/UserEmail")";
+        // debugger;
+        oTableUserEmail = $("#tbUserEmail").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserEmailGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserEmail + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserEmail + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserEmail + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserEducation = "";
+        var ControlerNameUserEducation = "@Url.Content("~/UserEducation")";
+        // debugger;
+        oTableUserEducation = $("#tbUserEducation").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserEducationGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserEducation + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserEducation + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserEducation + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserAttendence = "";
+        var ControlerNameUserAttendence = "@Url.Content("~/UserAttendence")";
+        // debugger;
+        oTableUserAttendence = $("#tbUserAttendence").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserAttendenceGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserAttendence + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserAttendence + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserAttendence + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserLeaveApplication = "";
+        var ControlerNameUserLeaveApplication = "@Url.Content("~/UserLeaveApplication")";
+        // debugger;
+        oTableUserLeaveApplication = $("#tbUserLeaveApplication").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserLeaveApplicationGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserLeaveApplication + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserLeaveApplication + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserLeaveApplication + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserLanguage = "";
+        var ControlerNameUserLanguage = "@Url.Content("~/UserLanguage")";
+        // debugger;
+        oTableUserLanguage = $("#tbUserLanguage").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserLanguageGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserLanguage + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserLanguage + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserLanguage + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserWorkExperience = "";
+        var ControlerNameUserWorkExperience = "@Url.Content("~/UserWorkExperience")";
+        // debugger;
+        oTableUserWorkExperience = $("#tbUserWorkExperience").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserWorkExperienceGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserWorkExperience + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserWorkExperience + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserWorkExperience + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserSalaryTransaction = "";
+        var ControlerNameUserSalaryTransaction = "@Url.Content("~/UserSalaryTransaction")";
+        // debugger;
+        oTableUserSalaryTransaction = $("#tbUserSalaryTransaction").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserSalaryTransactionGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserSalaryTransaction + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserSalaryTransaction + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserSalaryTransaction + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>
+<script type="text/javascript">
+
+    @*$(document).ready(function () {
+        var oTableUserPromotion = "";
+        var ControlerNameUserPromotion = "@Url.Content("~/UserPromotion")";
+        // debugger;
+        oTableUserPromotion = $("#tbUserPromotion").dataTable({
+            "bRetrieve": true,
+            "bProcessing": true,
+            "sAjaxSource": "@Url.Content("~/User/UserPromotionGetGrid/" + ViewBag.IsWorking)",
+            "aoColumns": [
+
+            {
+                "mRender": function (oObj, type, row) {
+                    var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameUserPromotion + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                    buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameUserPromotion + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                    buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameUserPromotion + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                    return buttons;
+                }
+
+            }, {}, {}, {}, {}, {}, {}, {}
+            ]
+
+        });
+
+    });*@
+</script>

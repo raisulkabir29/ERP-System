@@ -1,0 +1,119 @@
+﻿@model HRMS.Models.UserAttendanceDetails
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserAttendanceDetails", "tbUserAttendanceDetails", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+@using (Html.BeginForm("Create", "UserAttendanceDetails", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserAttendanceDetails" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Attendance Details Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserAttndStatusId, new { @class = "" })
+                                @Html.DropDownList("UserAttndStatusId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/UserAttendanceStatus/Create", "AddMore", "")
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PresentDate, new { @class = "" })
+                                @Html.EditorFor(model => model.PresentDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#PresentDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CalendarDay, new { @class = "" })
+                                @Html.EditorFor(model => model.CalendarDay)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalHoliDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalHoliDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalWorkingDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalWorkingDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OvertimeHour, new { @class = "" })
+                                @Html.EditorFor(model => model.OvertimeHour)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PreparedBy, new { @class = "" })
+                                @Html.DropDownList("PreparedBy", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CheckedBy, new { @class = "" })
+                                @Html.DropDownList("CheckedBy", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AuthorizedBy, new { @class = "" })
+                                @Html.DropDownList("AuthorizedBy", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

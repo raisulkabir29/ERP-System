@@ -1,0 +1,102 @@
+@model HRMS.Models.UserTermination
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserTermination", "tbUserTermination", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+@using (Html.BeginForm("Create", "UserTermination", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserTermination" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Termination Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoticeDate, new { @class = "" })
+                                @Html.EditorFor(model => model.NoticeDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#NoticeDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TerminationDate, new { @class = "" })
+                                @Html.EditorFor(model => model.TerminationDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#TerminationDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TerminationReason, new { @class = "" })
+                                @Html.EditorFor(model => model.TerminationReason)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "" })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "" })
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("DateAdded", DateTime.Now)
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsResignation, new { @class = "" })
+                                @Html.EditorFor(model => model.IsResignation)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ResignationApproveDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ResignationApproveDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ResignationApproveDate").datepicker({ format: 'd/m/yy' }); })</script>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

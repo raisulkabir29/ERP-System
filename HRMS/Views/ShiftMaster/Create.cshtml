@@ -1,0 +1,115 @@
+﻿@model HRMS.Models.ShiftMaster
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmShiftMaster", "tbShiftMaster", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+            //$(function () {
+            //    $('select').searchableOptionList({
+            //        maxHeight: '250px'
+            //    });
+            //});
+</script>
+@using (Html.BeginForm("Create", "ShiftMaster", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmShiftMaster" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill Shift Master Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OTNOT, new { @class = "" })
+                                @Html.DropDownList("OTNOT", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "OT", Value="OT"  },
+                                      new SelectListItem {Text = "NOT", Value="NOT"  }
+                                  })
+                                @Html.ValidationMessage("OTNOT", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, new { @class = "" })
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "", placeholder = "pls type Code" } })
+                                @Html.ValidationMessage("Code", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "pls type Name" } })
+                                @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "" })
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "", placeholder = "pls type Description" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StartTime, new { @class = "" })
+                                @Html.DropDownList("StartTime", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "06:00", Value="06:00"  },
+                                      new SelectListItem {Text = "08:00", Value="08:00"  },
+                                      new SelectListItem {Text = "09:00", Value="09:00"  },
+                                      new SelectListItem {Text = "14:00", Value="14:00"  },
+                                      new SelectListItem {Text = "22:00", Value="22:00"  }
+                                  })
+                                @Html.ValidationMessage("StartTime", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EndTime, new { @class = "" })
+                                @Html.DropDownList("EndTime", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "06:00", Value="06:00"  },
+                                      new SelectListItem {Text = "14:00", Value="14:00"  },
+                                      new SelectListItem {Text = "17:00", Value="17:00"  },
+                                      new SelectListItem {Text = "18:00", Value="18:00"  },
+                                      new SelectListItem {Text = "22:00", Value="22:00"  }
+                                  })
+                                @Html.ValidationMessage("EndTime", "", new { @class = "text-danger" })
+                            </div>
+                            @Html.Hidden("DateAdded", DateTime.Now)
+                            @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

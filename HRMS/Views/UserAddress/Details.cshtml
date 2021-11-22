@@ -1,0 +1,76 @@
+@model HRMS.Models.UserAddress
+
+@{
+    ViewBag.Title = "Details";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        <small>Details</small>
+    </h1>
+</section>
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of UserAddress</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>Line1</td>
+                                    <td>@Html.DisplayFor(model => model.Line1)</td>
+                                </tr>
+                                <tr>
+                                    <td>Line2</td>
+                                    <td>@Html.DisplayFor(model => model.Line2)</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>@Html.DisplayFor(model => model.City)</td>
+                                </tr>
+                                <tr>
+                                    <td>PinCode</td>
+                                    <td>@Html.DisplayFor(model => model.PinCode)</td>
+                                </tr>
+                                <tr>
+                                    <td>NearBy</td>
+                                    <td>@Html.DisplayFor(model => model.NearBy)</td>
+                                </tr>
+                                <tr>
+                                    <td>IsEmergency</td>
+                                    <td>@Html.DisplayFor(model => model.IsEmergency)</td>
+                                </tr>
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.UserId)</td>
+                                </tr>
+
+ 
+                            </table>
+                            <div class="box-footer">
+                                @Ajax.ModalDialogActionLink("Edit", "Edit/" + Model.Id, "Edit", "btn btn-primary") 
+                                 
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

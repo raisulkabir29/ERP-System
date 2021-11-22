@@ -1,0 +1,123 @@
+﻿@model HRMS.Models.UserLeaveApplication
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmEmployeeLeaveApplication", "tbEmployeeLeaveApplication", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+        //$(function () {
+        //    $("#UserId").prop("disabled", true);
+        //    $("#ApplicationStatusId").prop("disabled", true);
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "EmployeeLeaveApplication", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEmployeeLeaveApplication" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Employee Leave Application</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveTypeId, new { @class = "" })
+                                @Html.DropDownList("LeaveTypeId", " -Select- ")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveActiveFrom, new { @class = "" })
+                                @Html.EditorFor(model => model.LeaveActiveFrom, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#LeaveActiveFrom").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveActiveTo, new { @class = "" })
+                                @Html.EditorFor(model => model.LeaveActiveTo, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#LeaveActiveTo").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.DateAdded)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApplicationDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ApplicationDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoOfDays, new { @class = "" })
+                                @Html.EditorFor(model => model.NoOfDays)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeavePurpose, new { @class = "" })
+                                @Html.EditorFor(model => model.LeavePurpose)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApplicationStatusId, new { @class = "" })
+                                @Html.DropDownList("ApplicationStatusId", " -Select- ")
+                            </div>
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

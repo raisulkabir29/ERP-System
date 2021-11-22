@@ -1,0 +1,80 @@
+﻿@model HRMS.Models.UserEmploymentType
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserEmploymentType", "tbUserEmploymentType", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+@using (Html.BeginForm("Create", "UserEmploymentType", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserEmploymentType" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Employment Type Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmploymentTypeId, new { @class = "" })
+                                @Html.DropDownList("EmploymentTypeId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/EmploymentType/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DepartmentId, new { @class = "" })
+                                @Html.DropDownList("DepartmentId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/Department/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            @Html.Hidden("DateAdded", DateTime.Now)
+                            @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

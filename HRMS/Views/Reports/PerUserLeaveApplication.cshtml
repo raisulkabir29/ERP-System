@@ -1,0 +1,183 @@
+﻿@model IEnumerable<HRMS.ModelDto.IndexDto>
+@{
+    ViewBag.Title = "Employee Leave Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string css1 = Url.Content("~/Content/theme/bootstrap/css/bootstrap.min.css");
+}
+
+
+<style>
+    select {
+        width: 95%;
+    }
+</style>
+
+
+
+<section class="content" style="background-color: #996600; background-image: url(@Url.Content("~/Content/wood-pattern.png"));">
+    <!-- Small boxes (Stat box)  -->
+    <div class="row">
+		<script src="~/Scripts/jquery1.8.3.print.js"></script>
+	<link href="~/Content/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/Content/datetimepicker-master/jquery.datetimepicker.min.js"> </script>
+<script src="~/Content/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<script src="~/Content/datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
+<link href="~/Content/theme/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+<script src="~/Content/theme/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="~/Scripts/custom.js"></script>
+        <div class="col-md-3">
+            <section class="content">
+                <!-- Small boxes (Stat box) -->
+                @using (Html.BeginForm("PerUserLeaveApplication", "Reports", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmreport" }))
+                {
+                    <div class="col-xs-12">
+                        @Html.DropDownList("UserList", "--Users--")
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div class="col-xs-12">
+                        <input class="btn btn-default" value="Get" type="submit">
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <br /><br /><br />
+
+                    <a class="btn btn-app" id="btnPrint">
+                        <i class="fa fa-print"></i>
+                        Print This
+                    </a>
+
+                }
+
+            </section>
+        </div>
+
+        <div class="col-xs-9">
+
+            <div id="dvContainer" class="content invoice" style=" padding: inherit; min-height: 312mm;margin:0px;width:100%; ">
+                @Html.Raw(ViewBag.header)
+                <style>
+                    @@media print {
+                        .headerrow {
+                            background-color: #eee !important;
+                            -webkit-print-color-adjust: exact;
+                        }
+                    }
+
+                    
+
+                    .headerRow {
+                        padding: 8px;
+                        background-color: #eee !important;
+                        -webkit-print-color-adjust: exact;
+                    }
+                </style>
+                <div style="margin-bottom:50px;">
+
+                </div>
+                <div class="row" style="font-size:12px;text-align:center;font-weight:bold;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+
+
+                    <div style="text-align:center;font-size:30px;font-weight:bold;">Employee Leave Application </div>
+                    <div style="text-align:center;font-size:24px;font-weight:bold;"> @ViewBag.UserName  </div>
+
+
+                    <div style="text-align:left;margin-left:40px;">
+
+                        <div style="height:10px; margin-bottom:10px; ">
+
+                        </div>
+
+
+
+                        <div class="row">
+
+                            <div class="col-xs-12">
+
+                                <div style="width:96%;">
+                                    @{if (Model.Any())
+                                    {
+                                        if (Model.Count() > 0)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                <div class="row" style="border: 1px solid #e5e2e2;border-radius: 5px;">
+                                                  
+                                                        <table class="table table-responsive">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th colspan="2" style="padding:0px;"><div class="headerRow" style="text-align:left;">Leave Category : @item.Name</div></th>
+                                                                </tr>
+                                                            
+<tr>
+                                                                    <td>Leave From</td>
+                                                                    <td style="float:right;">@item.FromDate.ToString("dd-MMM-yyyy")</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Leave To</td>
+                                                                    <td style="float:right;">@item.ToDate.ToString("dd-MMM-yyyy")</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr><td>Approval Status:@item.status</td><td style="float:right;">Approved By:@item.ApprovedBy</td></tr>
+
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                               
+                                                <br />
+                                                <br />
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12" style="background-color: #e5e2e2;">
+                                                <span>No Leave Application Found</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:10px; margin-bottom:20px;">
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-5" style="padding-left:60px;"> @DateTime.Now.ToString("dd/MMM/yyyy hh:mm:tt")</div>
+                        <div class="col-xs-4" style="margin-left:25%;padding-left:80px;">Printed by: @Env.GetUserInfo("name") </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-app" id="btnPrint">
+            <i class="fa fa-print"></i>
+            Print This
+        </a>
+    </div>
+</section>
+

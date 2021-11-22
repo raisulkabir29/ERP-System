@@ -1,0 +1,137 @@
+﻿@model HRMS.Models.UserPrAbsDetails
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserPrAbsDetails", "tbUserPrAbsDetails", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+@using (Html.BeginForm("Create", "UserPrAbsDetails", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserPrAbsDetails" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Present Absent Details Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CalenderDay, new { @class = "" })
+                                @Html.EditorFor(model => model.CalenderDay)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalHoliDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalHoliDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalWorkingDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalWorkingDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ADBJ, new { @class = "" })
+                                @Html.EditorFor(model => model.ADBJ)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ADBJAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.ADBJAmount)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ADAJ, new { @class = "" })
+                                @Html.EditorFor(model => model.ADAJ)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ADAJAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.ADAJAmount)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LWP, new { @class = "" })
+                                @Html.EditorFor(model => model.LWP)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LWPAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.LWPAmount)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalAbsentDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalAbsentDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalCasualLeaves, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalCasualLeaves)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalSickLeaves, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalSickLeaves)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalEarnedLeaves, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalEarnedLeaves)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalPresentDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalPresentDays)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalPayableDays, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalPayableDays)
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,157 @@
+﻿@model IEnumerable<HRMS.Models.UserRefNominee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        @*<small>User Details List </small>*@
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">User Records</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body table-responsive">
+
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                    <br /><br />
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <span id="found" class="label label-info"></span>
+
+                            <table id="tbPages" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>Actions</th>
+                                        @*<th> ID  </th>*@
+                                        @* <th> User ID  </th>*@
+                                        <th> User Name  </th>
+                                        <th> Current Guardian Name  </th>
+                                        <th> Recommender  </th>
+                                        <th> Emerg Contact Name  </th>
+                                        <th> Emerg Contact Relation  </th>
+                                        <th> Emerg Contact Addr Village  </th>
+                                        <th> Emerg Contact Addr PO  </th>
+                                        <th> Emerg Contact Addr Thana  </th>
+                                        <th> Emerg Contact Addr District  </th>
+                                        <th> Emerg Contact Phone No  </th>
+                                        <th> Emerg Contact Mb No  </th>
+                                        <th> Ref1 Name  </th>
+                                        <th> Ref1 Company  </th>
+                                        <th> Ref1 Designation  </th>
+                                        <th> Ref1 Contact No  </th>
+                                        <th> Ref1 Address Village  </th>
+                                        <th> Ref1 Address PO  </th>
+                                        <th> Ref1 Address Thana  </th>
+                                        <th> Ref1 Address District  </th>
+                                        <th> Ref2 Name  </th>
+                                        <th> Ref2 Company  </th>
+                                        <th> Ref2 Designation  </th>
+                                        <th> Ref2 Contact No  </th>
+                                        <th> Ref2 Addr Village  </th>
+                                        <th> Ref2 Addr PO  </th>
+                                        <th> Ref2 Addr Thana  </th>
+                                        <th> Ref2 Addr District  </th>
+                                        <th> Nominee Name  </th>
+                                        <th> Nominee Father Name  </th>
+                                        <th> Nominee Mother Name  </th>
+                                        <th> Nominee Profession  </th>
+                                        <th> Nominee Contact Ph No  </th>
+                                        <th> Rel with Nominee  </th>
+                                        <th> Nominee Addr Village  </th>
+                                        <th> Nominee Addr PO  </th>
+                                        <th> Nominee Addr Union  </th>
+                                        <th> Nominee Addr Upazilla  </th>
+                                        <th> Nominee Addr District  </th>
+                                        <th> Birth Certificate  </th>
+                                        <th> Police Verification  </th>
+                                        <th> Date Added </th>
+                                        <th> Modified Date </th>
+
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            @*<td> @Html.DisplayFor(modelItem => item.Id) </td>*@
+                                            @*<td> @Html.DisplayFor(modelItem => item.UserId) </td>*@
+                                            <td> @Html.DisplayFor(modelItem => item.User_UserId.UserName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.CurrentGuardianName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Recommender) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactRel) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactAddrVillage) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactAddrPO) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactAddrThana) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactAddrDistrict) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactPhNo) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmergContactMbNo) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1Name) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1Company) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1Designation) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1ContactNo) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1AddrVillage) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1AddrPO) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1AddrThana) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference1AddrDistrict) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2Name) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2Company) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2Designation) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2ContactNo) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2AddrVillage) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2AddrPO) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2AddrThana) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Reference2AddrDistrict) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeFatherName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeMotherName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeProfession) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeContactPhNo) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeRel) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeAddrVillage) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeAddrPO) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeAddrUnion) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeAddrUpazilla) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NomineeAddrDistrict) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.BirthCertificate) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.PoliceVerification) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.DateAdded) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.ModifiedDate) </td>
+
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="box-footer">
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

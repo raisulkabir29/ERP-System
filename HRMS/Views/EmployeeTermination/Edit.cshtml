@@ -1,0 +1,185 @@
+﻿@model HRMS.Models.EmployeeTermination
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmEmployeeTermination", "tbEmployeeTermination", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "EmployeeTermination", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEmployeeTermination" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Employee Termination</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TerminationId, new { @class = "" })
+                                @Html.DropDownList("TerminationId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/TerminationType/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DepartmentId, new { @class = "" })
+                                @Html.DropDownList("DepartmentId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/Department/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SectionId, new { @class = "" })
+                                @Html.EditorFor(model => model.SectionId)
+                                @*@Html.EditorFor(model => model.SectionId, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomId, new { @class = "" })
+                                @Html.DropDownList("CustomId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OccuranceDate, new { @class = "" })
+                                @Html.EditorFor(model => model.OccuranceDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#OccuranceDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DetectionDate, new { @class = "" })
+                                @Html.EditorFor(model => model.DetectionDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#DetectionDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShowcauseDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ShowcauseDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ShowcauseDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "" })
+                                @Html.EditorFor(model => model.Description)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReplyDay, new { @class = "" })
+                                @Html.DropDownList("ReplyDay", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "3", Value="3"  },
+                                      new SelectListItem {Text = "7", Value="7"  },
+                                      new SelectListItem {Text = "15", Value="15"  },
+                                      new SelectListItem {Text = "30", Value="30"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NotificationDay, new { @class = "" })
+                                @Html.EditorFor(model => model.NotificationDay, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#NotificationDay").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TerminationDate, new { @class = "" })
+                                @Html.EditorFor(model => model.TerminationDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#TerminationDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @*@Html.EditorFor(model => model.Year)*@
+                                @Html.DropDownList("Year", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "2019", Value="2019"  },
+                                      new SelectListItem {Text = "2020", Value="2020"  },
+                                      new SelectListItem {Text = "2021", Value="2021"  },
+                                      new SelectListItem {Text = "2022", Value="2022"  },
+                                      new SelectListItem {Text = "2023", Value="2023"  },
+                                      new SelectListItem {Text = "2024", Value="2024"  },
+                                      new SelectListItem {Text = "2025", Value="2025"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.DropDownList("Month", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "January", Value="Jan"  },
+                                      new SelectListItem {Text = "February", Value="Feb"  },
+                                      new SelectListItem {Text = "March", Value="Mar"  },
+                                      new SelectListItem {Text = "April", Value="Apr"  },
+                                      new SelectListItem {Text = "May", Value="May"  },
+                                      new SelectListItem {Text = "June", Value="Jun"  },
+                                      new SelectListItem {Text = "July", Value="July"  },
+                                      new SelectListItem {Text = "August", Value="Aug"  },
+                                      new SelectListItem {Text = "September", Value="Sept"  },
+                                      new SelectListItem {Text = "October", Value="Oct"  },
+                                      new SelectListItem {Text = "November", Value="Nov"  },
+                                      new SelectListItem {Text = "December", Value="Dec"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsPayable, new { @class = "" })
+                                @Html.DropDownList("IsPayable", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "Yes", Value="1"  },
+                                      new SelectListItem {Text = "No", Value="2"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PayableAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.PayableAmount)
+                                @*@Html.EditorFor(model => model.PayableAmount, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

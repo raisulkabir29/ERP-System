@@ -1,0 +1,163 @@
+﻿@model HRMS.Models.UserSalaryIncrement
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserSalaryIncrement", "tbUserSalaryIncrement", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "UserSalaryIncrement", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserSalaryIncrement" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit User Salary Increment</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OTNOT, new { @class = "" })
+                                @Html.DropDownList("OTNOT", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "OT", Value="OT"  },
+                                      new SelectListItem {Text = "NOT", Value="NOT"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.GrossSalary, new { @class = "" })
+                                @Html.EditorFor(model => model.GrossSalary)
+                                @*@Html.EditorFor(model => model.GrossSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BasicSalary, new { @class = "" })
+                                @Html.EditorFor(model => model.BasicSalary)
+                                @*@Html.EditorFor(model => model.BasicSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IncrementPercentage, new { @class = "" })
+                                @Html.EditorFor(model => model.IncrementPercentage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.YearOfIncrement, new { @class = "" })
+                                @Html.EditorFor(model => model.YearOfIncrement)
+                                @*@Html.EditorFor(model => model.YearOfIncrement, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IncrementOnGrossOrBasic, new { @class = "" })
+                                @Html.DropDownList("IncrementOnGrossOrBasic", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "Gross", Value="1"  },
+                                      new SelectListItem {Text = "Basic", Value="2"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NewGrossSalary, new { @class = "" })
+                                @Html.EditorFor(model => model.NewGrossSalary)
+                                @*@Html.EditorFor(model => model.NewGrossSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NewBasicSalary, new { @class = "" })
+                                @Html.EditorFor(model => model.NewBasicSalary)
+                                @*@Html.EditorFor(model => model.NewBasicSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OvertimeRate, new { @class = "" })
+                                @Html.EditorFor(model => model.OvertimeRate)
+                                @*@Html.EditorFor(model => model.OvertimeRate, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @*@Html.EditorFor(model => model.Year, null, new { })*@
+                                @Html.DropDownList("Year", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "2019", Value="2019"  },
+                                      new SelectListItem {Text = "2020", Value="2020"  },
+                                      new SelectListItem {Text = "2021", Value="2021"  },
+                                      new SelectListItem {Text = "2022", Value="2022"  },
+                                      new SelectListItem {Text = "2023", Value="2023"  },
+                                      new SelectListItem {Text = "2024", Value="2024"  },
+                                      new SelectListItem {Text = "2025", Value="2025"  }
+                                  })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.DropDownList("Month", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value="0"  },
+                                      new SelectListItem {Text = "January", Value="Jan"  },
+                                      new SelectListItem {Text = "February", Value="Feb"  },
+                                      new SelectListItem {Text = "March", Value="Mar"  },
+                                      new SelectListItem {Text = "April", Value="Apr"  },
+                                      new SelectListItem {Text = "May", Value="May"  },
+                                      new SelectListItem {Text = "June", Value="Jun"  },
+                                      new SelectListItem {Text = "July", Value="July"  },
+                                      new SelectListItem {Text = "August", Value="Aug"  },
+                                      new SelectListItem {Text = "September", Value="Sept"  },
+                                      new SelectListItem {Text = "October", Value="Oct"  },
+                                      new SelectListItem {Text = "November", Value="Nov"  },
+                                      new SelectListItem {Text = "December", Value="Dec"  }
+                                  })
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

@@ -1,0 +1,330 @@
+﻿@model HRMS.Models.UserDetails
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserDetails", "tbUserDetails", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+
+    function CopyAdd(cb) {
+        var cb = document.getElementById('sameadd');
+        var a1 = document.getElementById('PresentAddressVillage');
+        var a2 = document.getElementById('PresentAddressPO');
+        var a3 = document.getElementById('PresentAddressThana');
+        var a4 = document.getElementById('PresentAddressDistrict');
+        var b1 = document.getElementById('PermanentAddressVillage');
+        var b2 = document.getElementById('PermanentAddressPO');
+        var b3 = document.getElementById('PermanentAddressThana');
+        var b4 = document.getElementById('PermanentAddressDistrict');
+
+        if (cb.checked) {
+            b1.value = a1.value;
+            b2.value = a2.value;
+            b3.value = a3.value;
+            b4.value = a4.value;
+
+        }
+        else {
+            b1.value = '';
+            b2.value = '';
+            b3.value = '';
+            b4.value = '';
+
+        }
+    }
+</script>
+@using (Html.BeginForm("Create", "UserDetails", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserDetails" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Details Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.JoiningDate, new { @class = "" })
+                                @Html.EditorFor(model => model.JoiningDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#JoiningDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.FatherOrHusbandName, new { @class = "" })
+            @Html.EditorFor(model => model.FatherOrHusbandName)*@
+
+
+                                @Html.LabelFor(model => model.FatherOrHusband, new { @class = "" })
+                                @Html.DropDownList("FatherOrHusband", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "--Select--", Value=""  },
+                                        new SelectListItem {Text = "Father", Value="Father"  },
+                                        new SelectListItem {Text = "Husband", Value="Husband"  }
+                                    })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FatherOrHusbandName, new { @class = "" })
+                                @Html.EditorFor(model => model.FatherOrHusbandName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MotherName, new { @class = "" })
+                                @Html.EditorFor(model => model.MotherName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PresentAddressVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.PresentAddressVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PresentAddressPO, new { @class = "" })
+                                @Html.EditorFor(model => model.PresentAddressPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PresentAddressThana, new { @class = "" })
+                                @Html.EditorFor(model => model.PresentAddressThana)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PresentAddressDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.PresentAddressDistrict)
+                            </div>
+                            <div class="form-group">
+                                <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd(this);" />&nbsp;&nbsp;&nbsp;
+                                Permenent Address Same as Present Address
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PermanentAddressVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.PermanentAddressVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PermanentAddressPO, new { @class = "" })
+                                @Html.EditorFor(model => model.PermanentAddressPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PermanentAddressThana, new { @class = "" })
+                                @Html.EditorFor(model => model.PermanentAddressThana)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PermanentAddressDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.PermanentAddressDistrict)
+                            </div>
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.Height, new { @class = "" })
+            @Html.EditorFor(model => model.Height)*@
+
+                                @Html.LabelFor(model => model.Height, new { @class = "" })
+                                @Html.DropDownList("Height", new List<SelectListItem>
+                                   {
+                                       new SelectListItem {Text = "--Select--", Value=""  },
+                                       new SelectListItem {Text = "4'", Value="4'"  },
+                                       new SelectListItem {Text = "4.1''", Value="4.1''"  },
+                                       new SelectListItem {Text = "4.2''", Value="4.2''"  },
+                                       new SelectListItem {Text = "4.3''", Value="4.3''"  },
+                                       new SelectListItem {Text = "4.4''", Value="4.4''"  },
+                                       new SelectListItem {Text = "4.5''", Value="4.5''"  },
+                                       new SelectListItem {Text = "4.6''", Value="4.6''"  },
+                                       new SelectListItem {Text = "4.7''", Value="4.7''"  },
+                                       new SelectListItem {Text = "4.8''", Value="4.8''"  },
+                                       new SelectListItem {Text = "4.9''", Value="4.9''"  },
+                                       new SelectListItem {Text = "4.10''", Value="4.10''"  },
+                                       new SelectListItem {Text = "4.11''", Value="4.11''"  },
+                                       new SelectListItem {Text = "5'", Value="5'"  },
+                                       new SelectListItem {Text = "5.1''", Value="5.1''"  },
+                                       new SelectListItem {Text = "5.2''", Value="5.2''"  },
+                                       new SelectListItem {Text = "5.3''", Value="5.3''"  },
+                                       new SelectListItem {Text = "5.4''", Value="5.4''"  },
+                                       new SelectListItem {Text = "5.5''", Value="5.5''"  },
+                                       new SelectListItem {Text = "5.6''", Value="5.6''"  },
+                                       new SelectListItem {Text = "5.7''", Value="5.7''"  },
+                                       new SelectListItem {Text = "5.8''", Value="5.8''"  },
+                                       new SelectListItem {Text = "5.9''", Value="5.9''"  },
+                                       new SelectListItem {Text = "5.10''", Value="5.10''"  },
+                                       new SelectListItem {Text = "5.11''", Value="5.11''"  },
+                                       new SelectListItem {Text = "6'", Value="6'"  },
+                                       new SelectListItem {Text = "6.1''", Value="6.1''"  },
+                                       new SelectListItem {Text = "6.2''", Value="6.2''"  },
+                                       new SelectListItem {Text = "6.3''", Value="6.3''"  },
+                                       new SelectListItem {Text = "6.4''", Value="6.4''"  },
+                                       new SelectListItem {Text = "6.5''", Value="6.5''"  },
+                                   })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Weight, new { @class = "" })
+                                @Html.EditorFor(model => model.Weight)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Birthmark, new { @class = "" })
+                                @Html.EditorFor(model => model.Birthmark)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EyeColor, new { @class = "" })
+                                @Html.DropDownList("EyeColor", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "--Select--", Value=""  },
+                                        new SelectListItem {Text = "Black", Value="Black"  },
+                                        new SelectListItem {Text = "Blue", Value="Blue"  },
+                                        new SelectListItem {Text = "Gray", Value="Gray"  },
+                                        new SelectListItem {Text = "Green", Value="Green"  }
+                                    })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HairColor, new { @class = "" })
+                                @Html.DropDownList("HairColor", new List<SelectListItem>
+                                   {
+                                       new SelectListItem {Text = "--Select--", Value=""  },
+                                       new SelectListItem {Text = "Black", Value="Black"  },
+                                       new SelectListItem {Text = "White", Value="White"  },
+                                       new SelectListItem {Text = "Brown", Value="Brown"  }
+                                   })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoOfTeeth, new { @class = "" })
+                                @Html.EditorFor(model => model.NoOfTeeth)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Age, new { @class = "" })
+                                @* @Html.EditorFor(model => model.Age)*@
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Beard, new { @class = "" })
+                                @* @Html.EditorFor(model => model.Beard)*@
+                                @Html.DropDownList("Beard", new List<SelectListItem>
+                                   {
+                                       new SelectListItem {Text = "--Select--", Value=""  },
+                                       new SelectListItem {Text = "Yes", Value="yes"  },
+                                       new SelectListItem {Text = "No", Value="no"  }
+                                   })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaritalStatus, new { @class = "" })
+                                @*@Html.EditorFor(model => model.MaritalStatus)*@
+                                @Html.DropDownList("MaritalStatus", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "--Select--", Value=""  },
+                                        new SelectListItem {Text = "Married", Value="Married"  },
+                                        new SelectListItem {Text = "Unmarried", Value="Unmarried"  },
+                                        new SelectListItem {Text = "Divorced", Value="Divorced"  }
+                                    })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ChildNo, new { @class = "" })
+                                @Html.EditorFor(model => model.ChildNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FamilyMember, new { @class = "" })
+                                @Html.EditorFor(model => model.FamilyMember)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EarningMemberInFamily, new { @class = "" })
+                                @Html.EditorFor(model => model.EarningMemberInFamily)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Religion, new { @class = "" })
+                                @Html.EditorFor(model => model.Religion)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalExperience, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalExperience)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmailAddress, new { @class = "" })
+                                @Html.EditorFor(model => model.EmailAddress)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LandPhoneNo, new { @class = "" })
+                                @Html.EditorFor(model => model.LandPhoneNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MbPhoneNo, new { @class = "" })
+                                @Html.EditorFor(model => model.MbPhoneNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsActive, new { @class = "" })
+                                @*@Html.EditorFor(model => model.IsActive)*@
+                                @Html.DropDownList("IsActive", new List<SelectListItem>
+                                  {
+                                      new SelectListItem {Text = "--Select--", Value=""  },
+                                      new SelectListItem {Text = "Yes", Value="yes"  },
+                                      new SelectListItem {Text = "No", Value="no"  }
+                                  })
+                            </div>
+                            @*<div class="form-group">
+            @Html.LabelFor(model => model.IsEmergency, new { @class = "" })
+            @Html.EditorFor(model => model.IsEmergency)
+            @Html.DropDownList("IsEmergency", new List<SelectListItem>
+             {
+                 new SelectListItem {Text = "--Select--", Value=""  },
+                 new SelectListItem {Text = "Yes", Value="yes"  },
+                 new SelectListItem {Text = "No", Value="no"  }
+             })
+        </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InvolvedInCrime, new { @class = "" })
+                                @* @Html.EditorFor(model => model.InvolvedInCrime)*@
+                                @Html.DropDownList("InvolvedInCrime", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "--Select--", Value=""  },
+                                    new SelectListItem {Text = "Yes", Value="yes"  },
+                                    new SelectListItem {Text = "No", Value="no"  }
+                                })
+                            </div>
+                            @*<div class="form-group">
+            @Html.LabelFor(model => model.NoObjectionCert, new { @class = "" })
+            @Html.EditorFor(model => model.NoObjectionCert)
+            @Html.DropDownList("NoObjectionCert", new List<SelectListItem>
+            {
+                new SelectListItem {Text = "--Select--", Value=""  },
+                new SelectListItem {Text = "Yes", Value="yes"  },
+                new SelectListItem {Text = "No", Value="no"  }
+            })
+        </div>*@
+                            @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+                            @Html.Hidden("DateAdded", DateTime.Now)
+                            @*@Html.Hidden("DateAdded", DateTime.Now.Date)*@
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

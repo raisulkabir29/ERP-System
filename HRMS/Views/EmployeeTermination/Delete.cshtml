@@ -1,0 +1,132 @@
+﻿@model HRMS.Models.EmployeeTermination
+
+@{
+    ViewBag.Title = "Are you sure you want to delete";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+
+@Html.StarkAjaxFormSubmiter("frmEmployeeTermination", "tbEmployeeTermination", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of Employee Termination</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>Termination Name</td>
+                                    <td>@Html.DisplayFor(model => model.TerminationType_TerminationId.Name)</td>
+                                </tr>
+                                <tr>
+                                    <td>Department Name</td>
+                                    <td>@Html.DisplayFor(model => model.Department_DepartmentId.Name)</td>
+                                </tr>
+                                <tr>
+                                    <td>SectionId</td>
+                                    <td>@Html.DisplayFor(model => model.SectionId)</td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td>@Html.DisplayFor(model => model.User_UserId.UserName)</td>
+                                </tr>
+                                <tr>
+                                    <td>ID Card No</td>
+                                    <td>@Html.DisplayFor(model => model.User_UserId.CustomId)</td>
+                                </tr>
+                                <tr>
+                                    <td>Occurance Date</td>
+                                    <td>@Html.DisplayFor(model => model.OccuranceDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Detection Date</td>
+                                    <td>@Html.DisplayFor(model => model.DetectionDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Showcause Date</td>
+                                    <td>@Html.DisplayFor(model => model.ShowcauseDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>@Html.DisplayFor(model => model.Description)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reply Day</td>
+                                    <td>@Html.DisplayFor(model => model.ReplyDay)</td>
+                                </tr>
+                                <tr>
+                                    <td>Notification Day</td>
+                                    <td>@Html.DisplayFor(model => model.NotificationDay)</td>
+                                </tr>
+                                <tr>
+                                    <td>Termination Date</td>
+                                    <td>@Html.DisplayFor(model => model.TerminationDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td>@Html.DisplayFor(model => model.Year)</td>
+                                </tr>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>@Html.DisplayFor(model => model.Month)</td>
+                                </tr>
+                                <tr>
+                                    <td>Is Payable</td>
+                                    <td>@Html.DisplayFor(model => model.IsPayable)</td>
+                                </tr>
+                                <tr>
+                                    <td>Payable Amount</td>
+                                    <td>@Html.DisplayFor(model => model.PayableAmount)</td>
+                                </tr>
+                                <tr>
+                                    <td>Date Added</td>
+                                    <td>@Html.DisplayFor(model => model.DateAdded)</td>
+                                </tr>
+                                <tr>
+                                    <td>Modified Date</td>
+                                    <td>@Html.DisplayFor(model => model.ModifiedDate)</td>
+                                </tr>
+
+
+                            </table>
+                            <div class="box-footer">
+
+                                @using (Html.BeginForm("Delete", "EmployeeTermination", FormMethod.Post, new { id = "frmEmployeeTermination" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.StarkInputButtion("Delete", "submit", "btn btn-danger", "")
+                                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary", @style = "margin-left:5px;" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

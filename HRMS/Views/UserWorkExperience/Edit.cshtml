@@ -1,0 +1,114 @@
+@model HRMS.Models.UserWorkExperience
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserWorkExperience", "tbUserWorkExperience", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+
+@using (Html.BeginForm("Edit", "UserWorkExperience", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserWorkExperience" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit UserWorkExperience</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CompanyName, new { @class = "" })
+                                @Html.EditorFor(model => model.CompanyName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Position, new { @class = "" })
+                                @Html.EditorFor(model => model.Position)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FromDate, new { @class = "" })
+                                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#FromDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ToDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ToDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsCurrent, new { @class = "" })
+                                @Html.EditorFor(model => model.IsCurrent)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DescribeJob, new { @class = "" })
+                                @Html.EditorFor(model => model.DescribeJob)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastSalary, new { @class = "" })
+                                @Html.EditorFor(model => model.LastSalary)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.JobDuration, new { @class = "" })
+                                @Html.EditorFor(model => model.JobDuration)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReasonForLeave, new { @class = "" })
+                                @Html.EditorFor(model => model.ReasonForLeave)
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

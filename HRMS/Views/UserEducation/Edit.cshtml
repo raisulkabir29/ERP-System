@@ -1,0 +1,114 @@
+@model HRMS.Models.UserEducation
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserEducation", "tbUserEducation", true, "Action Successfully Executed")
+
+ 
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () { 
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "UserEducation", FormMethod.Post, new { enctype = "multipart/form-data",id = "frmUserEducation"  }))
+{
+    @Html.AntiForgeryToken()
+
+        <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit UserEducation</h3>
+                    </div> 
+                    <!-- form start -->
+  
+                    <div role="form">
+                        <div class="box-body">
+                              
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InstitutionId, new { @class = "" })
+                                @Html.DropDownList("InstitutionId"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/University/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Degree", new { @class = "" })
+                                @Html.DropDownList("Digree"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/Qualification/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FromDate, new { @class = "" }) 
+                                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "" } })
+                                <script> $(function () { $("#FromDate").datepicker({ format: 'd/m/yy' }); }); </script> 
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ToDate, new { @class = "" }) 
+                                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "" } })
+                                <script> $(function () { $("#ToDate").datepicker({ format: 'd/m/yy' }); }); </script> 
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalMarks, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalMarks)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OutOfMarks, new { @class = "" })
+                                @Html.EditorFor(model => model.OutOfMarks)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InstitutionName, new { @class = "" })
+                                @Html.EditorFor(model => model.InstitutionName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LatestDegree, new { @class = "" })
+                                @Html.EditorFor(model => model.LatestDegree)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DivisionOrGrade, new { @class = "" })
+                                @Html.EditorFor(model => model.DivisionOrGrade)
+                            </div>
+                            
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save","submit","btn btn-primary","") 
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+

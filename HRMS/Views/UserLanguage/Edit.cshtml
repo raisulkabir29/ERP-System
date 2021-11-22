@@ -1,0 +1,96 @@
+@model HRMS.Models.UserLanguage
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserLanguage", "tbUserLanguage", true, "Action Successfully Executed")
+
+ 
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () { 
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "UserLanguage", FormMethod.Post, new { enctype = "multipart/form-data",id = "frmUserLanguage"  }))
+{
+    @Html.AntiForgeryToken()
+
+        <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit UserLanguage</h3>
+                    </div> 
+                    <!-- form start -->
+  
+                    <div role="form">
+                        <div class="box-body">
+                              
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LanguageId, new { @class = "" })
+                                @Html.DropDownList("LanguageId"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/Language/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RateYourSelf, new { @class = "" })
+                                @Html.TextBoxFor(model => model.RateYourSelf, null, new {@type="number",@min="1",@max="5" })  
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("AddedBy", Env.GetUserInfo("userid")) 
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("DateAdded", DateTime.Now) 
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid")) 
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("DateModied", DateTime.Now) 
+                            </div>
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save","submit","btn btn-primary","") 
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+

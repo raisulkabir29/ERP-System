@@ -1,0 +1,225 @@
+﻿@model HRMS.Models.UserRefNominee
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserRefNominee", "tbUserRefNominee", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+@using (Html.BeginForm("Create", "UserRefNominee", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserRefNominee" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill User Reference & Nominee Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CurrentGuardianName, new { @class = "" })
+                                @Html.EditorFor(model => model.CurrentGuardianName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Recommender, new { @class = "" })
+                                @Html.EditorFor(model => model.Recommender)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactName, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactRel, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactRel)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactAddrVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactAddrVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactAddrPO, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactAddrPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactAddrThana, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactAddrThana)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactAddrDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactAddrDistrict)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactPhNo, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactPhNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmergContactMbNo, new { @class = "" })
+                                @Html.EditorFor(model => model.EmergContactMbNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1Name, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1Name)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1Company, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1Company)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1Designation, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1Designation)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1ContactNo, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1ContactNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1AddrVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1AddrVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1AddrPO, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1AddrPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1AddrThana, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1AddrThana)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference1AddrDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference1AddrDistrict)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2Name, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2Name)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2Company, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2Company)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2Designation, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2Designation)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2ContactNo, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2ContactNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2AddrVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2AddrVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2AddrPO, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2AddrPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2AddrThana, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2AddrThana)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference2AddrDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.Reference2AddrDistrict)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeName, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeFatherName, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeFatherName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeMotherName, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeMotherName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeProfession, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeProfession)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeContactPhNo, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeContactPhNo)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeRel, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeRel)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeAddrVillage, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeAddrVillage)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeAddrPO, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeAddrPO)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeAddrUnion, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeAddrUnion)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeAddrUpazilla, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeAddrUpazilla)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomineeAddrDistrict, new { @class = "" })
+                                @Html.EditorFor(model => model.NomineeAddrDistrict)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BirthCertificate, new { @class = "" })
+                                @Html.EditorFor(model => model.BirthCertificate)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PoliceVerification, new { @class = "" })
+                                @Html.EditorFor(model => model.PoliceVerification)
+                            </div>
+                            @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+                            @Html.Hidden("DateAdded", DateTime.Now)
+                            @*@Html.Hidden("DateAdded", DateTime.Now.Date)*@
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

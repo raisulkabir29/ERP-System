@@ -1,0 +1,173 @@
+﻿@model HRMS.Models.EmployeeSalaryAllowances
+
+@{
+    ViewBag.Title = "Details";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        @*<small>Details</small>*@
+    </h1>
+</section>
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of Employee Salary Allowances</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.UserId)</td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td>@Html.DisplayFor(model => model.Year)</td>
+                                </tr>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>@Html.DisplayFor(model => model.Month)</td>
+                                </tr>
+                                <tr>
+                                    <td>OTNOT</td>
+                                    <td>@Html.DisplayFor(model => model.OTNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>Gross</td>
+                                    <td>@Html.DisplayFor(model => model.Gross)</td>
+                                </tr>
+                                @*<tr>
+                                    <td>HRAllowanceOT</td>
+                                    <td>@Html.DisplayFor(model => model.HRAllowanceOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>HRAllowanceNOT</td>
+                                    <td>@Html.DisplayFor(model => model.HRAllowanceNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>MedAllowanceOT</td>
+                                    <td>@Html.DisplayFor(model => model.MedAllowanceOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>MedAllowanceNOT</td>
+                                    <td>@Html.DisplayFor(model => model.MedAllowanceNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>ConAllowanceOT</td>
+                                    <td>@Html.DisplayFor(model => model.ConAllowanceOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>ConAllowanceNOT</td>
+                                    <td>@Html.DisplayFor(model => model.ConAllowanceNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>FoodAllowanceOT</td>
+                                    <td>@Html.DisplayFor(model => model.FoodAllowanceOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>FoodAllowanceNOT</td>
+                                    <td>@Html.DisplayFor(model => model.FoodAllowanceNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>PerAllowanceOT</td>
+                                    <td>@Html.DisplayFor(model => model.PerAllowanceOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>PerAllowanceNOT</td>
+                                    <td>@Html.DisplayFor(model => model.PerAllowanceNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>AttendBonOT</td>
+                                    <td>@Html.DisplayFor(model => model.AttendBonOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>AttendBonNOT</td>
+                                    <td>@Html.DisplayFor(model => model.AttendBonNOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>BasicOT</td>
+                                    <td>@Html.DisplayFor(model => model.BasicOT)</td>
+                                </tr>
+                                <tr>
+                                    <td>BasicNOT</td>
+                                    <td>@Html.DisplayFor(model => model.BasicNOT)</td>
+                                </tr>*@
+                                <tr>
+                                    <td>Basic</td>
+                                    <td>@Html.DisplayFor(model => model.Basic)</td>
+                                </tr>
+                                <tr>
+                                    <td>HouseRentAllowance</td>
+                                    <td>@Html.DisplayFor(model => model.HouseRentAllowance)</td>
+                                </tr>
+                                <tr>
+                                    <td>MedicalAllowance</td>
+                                    <td>@Html.DisplayFor(model => model.MedicalAllowance)</td>
+                                </tr>
+                                <tr>
+                                    <td>ConveyanceAllowance</td>
+                                    <td>@Html.DisplayFor(model => model.ConveyanceAllowance)</td>
+                                </tr>
+                                <tr>
+                                    <td>FoodAllowance</td>
+                                    <td>@Html.DisplayFor(model => model.FoodAllowance)</td>
+                                </tr>
+                                <tr>
+                                    <td>PerformanceAllowance</td>
+                                    <td>@Html.DisplayFor(model => model.PerformanceAllowance)</td>
+                                </tr>
+                                <tr>
+                                    <td>AttendanceBonus</td>
+                                    <td>@Html.DisplayFor(model => model.AttendanceBonus)</td>
+                                </tr>
+                                <tr>
+                                    <td>SalaryPayableDate</td>
+                                    <td>@Html.DisplayFor(model => model.SalaryPayableDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Remarks</td>
+                                    <td>@Html.DisplayFor(model => model.Remarks)</td>
+                                </tr>
+                                <tr>
+                                    <td>DateAdded</td>
+                                    <td>@Html.DisplayFor(model => model.DateAdded)</td>
+                                </tr>
+                                <tr>
+                                    <td>AddedBy</td>
+                                    <td>@Html.DisplayFor(model => model.AddedBy)</td>
+                                </tr>
+                                <tr>
+                                    <td>ModifiedDate</td>
+                                    <td>@Html.DisplayFor(model => model.ModifiedDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>ModifiedBy</td>
+                                    <td>@Html.DisplayFor(model => model.ModifiedBy)</td>
+                                </tr>
+
+
+                            </table>
+                            <div class="box-footer">
+                                @Ajax.ModalDialogActionLink("Edit", "Edit/" + Model.Id, "Edit", "btn btn-primary")
+
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

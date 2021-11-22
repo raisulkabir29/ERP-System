@@ -1,0 +1,346 @@
+﻿@model HRMS.Models.UserSalaryIncrement
+@{
+    ViewBag.Title = "Advance Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/DataTable/new/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTable/new/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section ScriptsOrCss
+{
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/tabs/Jquery-ui.js"></script>
+    <link href="~/Content/tabs/JqueryUi.css" rel="stylesheet" />
+    <script>
+        $(function () {
+
+            $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+            $("#opener").click(function () {
+                $("#dialog").dialog("open");
+            });
+
+        });
+    </script>
+
+    <style>
+        table {
+            width: 100% !important;
+        }
+
+        .ui-tabs-vertical {
+            width: 100%;
+        }
+
+            .ui-tabs-vertical .ui-tabs-nav {
+                padding: .2em .1em .2em .2em;
+                float: left;
+                width: 19%;
+            }
+
+                .ui-tabs-vertical .ui-tabs-nav li {
+                    clear: left;
+                    width: 100%;
+                    border-bottom-width: 1px !important;
+                    border-right-width: 0 !important;
+                    margin: 0 -1px .2em 0;
+                }
+
+                    .ui-tabs-vertical .ui-tabs-nav li a {
+                        display: block;
+                    }
+
+                    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                        padding-bottom: 0;
+                        padding-right: .1em;
+                        border-right-width: 1px;
+                    }
+
+            .ui-tabs-vertical .ui-tabs-panel {
+                padding: 1em;
+                float: right;
+                width: 80%;
+            }
+    </style>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+</section>
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+
+@Html.StarkAjaxFormSubmiter("frmUserSalaryIncrement", "tbUserSalaryIncrement", true, "Action Successfully Executed")
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid box-primary">
+
+
+                <div id="tabs">
+                    @*<ul>
+                            <li><a href="#EditThis">Edit</a></li>
+                            <li><a href="#MenuPermission">Menu Permission</a></li>
+                            <li><a href="#RoleUser">User Attendance Details</a></li>
+                        </ul>*@
+                    <div id="EditThis" style="height:700px;overflow:auto;">
+                        @using (Html.BeginForm("MultiViewIndex", "UserSalaryIncrement", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserSalaryIncrement" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (ViewBag.IsWorking > 0)
+                            {
+                                <section class="content">
+                                    <!-- Small boxes (Stat box) -->
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="box box-solid box-primary">
+                                                <div class="box-header">
+                                                    <h3 class="box-title">Edit User Salary Increment Info</h3>
+                                                </div><!-- /.box-header -->
+                                                <!-- form start -->
+                                                <div role="form">
+                                                    <div class="box-body">
+                                                        <div class="alert alert-success alert-dismissable" id="dvMsg" style="display:@(TempData["Display"]==null ? "none" : "")">
+                                                            <i class="fa fa-apple"></i>
+                                                            <b> Update Successfully. </b>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                                            @Html.DropDownList("UserId", " -Select- ")
+                                                            @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.OTNOT, new { @class = "" })
+                                                            @Html.DropDownList("OTNOT", new List<SelectListItem>
+                                                              {
+                                                                  new SelectListItem {Text = "--Select--", Value="0"  },
+                                                                  new SelectListItem {Text = "OT", Value="OT"  },
+                                                                  new SelectListItem {Text = "NOT", Value="NOT"  }
+                                                              })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.GrossSalary, new { @class = "" })
+                                                            @Html.EditorFor(model => model.GrossSalary)
+                                                            @*@Html.EditorFor(model => model.GrossSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.BasicSalary, new { @class = "" })
+                                                            @Html.EditorFor(model => model.BasicSalary)
+                                                            @*@Html.EditorFor(model => model.BasicSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IncrementPercentage, new { @class = "" })
+                                                            @Html.EditorFor(model => model.IncrementPercentage)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.YearOfIncrement, new { @class = "" })
+                                                            @Html.EditorFor(model => model.YearOfIncrement)
+                                                            @*@Html.EditorFor(model => model.YearOfIncrement, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IncrementOnGrossOrBasic, new { @class = "" })
+                                                            @Html.DropDownList("IncrementOnGrossOrBasic", new List<SelectListItem>
+                                                              {
+                                                                  new SelectListItem {Text = "--Select--", Value="0"  },
+                                                                  new SelectListItem {Text = "Gross", Value="1"  },
+                                                                  new SelectListItem {Text = "Basic", Value="2"  }
+                                                              })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.NewGrossSalary, new { @class = "" })
+                                                            @Html.EditorFor(model => model.NewGrossSalary)
+                                                            @*@Html.EditorFor(model => model.NewGrossSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.NewBasicSalary, new { @class = "" })
+                                                            @Html.EditorFor(model => model.NewBasicSalary)
+                                                            @*@Html.EditorFor(model => model.NewBasicSalary, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.OvertimeRate, new { @class = "" })
+                                                            @Html.EditorFor(model => model.OvertimeRate)
+                                                            @*@Html.EditorFor(model => model.OvertimeRate, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated", @Value = "0.0" } })*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Year, new { @class = "" })
+                                                            @*@Html.EditorFor(model => model.Year, null, new { })*@
+                                                            @Html.DropDownList("Year", new List<SelectListItem>
+                                                              {
+                                                                  new SelectListItem {Text = "--Select--", Value="0"  },
+                                                                  new SelectListItem {Text = "2019", Value="2019"  },
+                                                                  new SelectListItem {Text = "2020", Value="2020"  },
+                                                                  new SelectListItem {Text = "2021", Value="2021"  },
+                                                                  new SelectListItem {Text = "2022", Value="2022"  },
+                                                                  new SelectListItem {Text = "2023", Value="2023"  },
+                                                                  new SelectListItem {Text = "2024", Value="2024"  },
+                                                                  new SelectListItem {Text = "2025", Value="2025"  }
+                                                              })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Month, new { @class = "" })
+                                                            @Html.DropDownList("Month", new List<SelectListItem>
+                                                              {
+                                                                  new SelectListItem {Text = "--Select--", Value="0"  },
+                                                                  new SelectListItem {Text = "January", Value="Jan"  },
+                                                                  new SelectListItem {Text = "February", Value="Feb"  },
+                                                                  new SelectListItem {Text = "March", Value="Mar"  },
+                                                                  new SelectListItem {Text = "April", Value="Apr"  },
+                                                                  new SelectListItem {Text = "May", Value="May"  },
+                                                                  new SelectListItem {Text = "June", Value="Jun"  },
+                                                                  new SelectListItem {Text = "July", Value="July"  },
+                                                                  new SelectListItem {Text = "August", Value="Aug"  },
+                                                                  new SelectListItem {Text = "September", Value="Sept"  },
+                                                                  new SelectListItem {Text = "October", Value="Oct"  },
+                                                                  new SelectListItem {Text = "November", Value="Nov"  },
+                                                                  new SelectListItem {Text = "December", Value="Dec"  }
+                                                              })
+                                                        </div>
+                                                        @Html.HiddenFor(model => model.DateAdded)
+                                                        @Html.HiddenFor(model => model.AddedBy)
+                                                        @Html.Hidden("ModifiedDate", DateTime.Now)
+                                                        @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                                                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            }
+                        }
+                    </div>
+
+                    @*<div id="MenuPermission" style="overflow:auto !important;">
+                            <div class="box box-solid box-primary"><div class="box-body">
+                                @Html.StarkAjaxLink("Create New","/MenuPermission/Create","StarkMenuPermission")
+                            </div> </div>
+                            <div class="box box-solid box-primary"> <div class="box-body">
+                                <table id="tbMenuPermission" class="table table-striped table-bordered">
+                                    <thead><tr>
+                                        <th></th>
+                                        <th> Is Create </th>
+                                        <th> Is Read </th>
+                                        <th> Is Update </th>
+                                        <th> Is Delete </th>
+                                        <th> S.No </th>
+                                        <th> Sort Order </th>
+                                        <th> Role </th>
+                                        <th> User </th>
+                                        <th> Menu </th>
+                                    </tr></thead><tbody></tbody>
+                                </table>
+                             </div></div>
+                        </div>*@
+
+                    @*<div id="RoleUser" style="overflow:auto !important;">
+                           <div class="box box-solid box-primary"><div class="box-body">
+                               @Html.StarkAjaxLink("Create New","/RoleUser/Create","StarkRoleUser")
+                           </div> </div>
+                           <div class="box box-solid box-primary"> <div class="box-body">
+                               <table id="tbRoleUser" class="table table-striped table-bordered">
+                                   <thead><tr>
+                                       <th></th>
+                                       <th> S.No </th>
+                                       <th> Role </th>
+                                       <th> User </th>
+                                   </tr></thead><tbody></tbody>
+                               </table>
+                            </div></div>
+                        </div>*@
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+        @*$(document).ready(function () {
+            var oTableMenuPermission = "";
+            var ControlerNameMenuPermission = "@Url.Content("~/MenuPermission")";
+            // debugger;
+            oTableMenuPermission = $("#tbMenuPermission").dataTable({
+                "bRetrieve": true,
+                "bProcessing": true,
+                "sAjaxSource": "@Url.Content("~/Role/MenuPermissionGetGrid/" + ViewBag.IsWorking)",
+                "aoColumns": [
+
+                {
+                                 "mRender": function (oObj, type, row) {
+                                     var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameMenuPermission + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                        buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameMenuPermission + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                        buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameMenuPermission + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                        return buttons;
+                                 }
+
+        } ,{},{},{},{},{},{},{},{},{}
+        ]
+
+        });
+
+        });*@
+</script>
+<script type="text/javascript">
+
+        @*$(document).ready(function () {
+            var oTableRoleUser = "";
+            var ControlerNameRoleUser = "@Url.Content("~/RoleUser")";
+            // debugger;
+            oTableRoleUser = $("#tbRoleUser").dataTable({
+                "bRetrieve": true,
+                "bProcessing": true,
+                "sAjaxSource": "@Url.Content("~/Role/RoleUserGetGrid/" + ViewBag.IsWorking)",
+                "aoColumns": [
+
+                {
+                                 "mRender": function (oObj, type, row) {
+                                     var buttons = "<a class=\"btn btn-social-icon btn-bitbucket\" href=" + ControlerNameRoleUser + "/MultiViewIndex/" + row[0] + "><i class=\"fa fa-edit\"></i></a>"
+                        buttons += "<a class=\"btn btn-social-icon btn-dropbox\" href=" + ControlerNameRoleUser + "/Details/" + row[0] + " data-ajax-update=\"#SkDetails\" data-ajax-success=\"openModalDialog('SkDetails', 'Details')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDetails');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDetails')\" data-ajax=\"true\"><i class=\"fa fa-info\"></i></a>";
+                        buttons += "<a class=\"btn btn-social-icon btn-google-plus\" href=" + ControlerNameRoleUser + "/Delete/" + row[0] + " data-ajax-update=\"#SkDelete\" data-ajax-success=\"openModalDialog('SkDelete', 'Delete')\" data-ajax-mode=\"replace\" data-ajax-method=\"GET\" data-ajax-failure=\"clearModalDialog('SkDelete');alert('Ajax call failed')\" data-ajax-begin=\"prepareModalDialog('SkDelete')\" data-ajax=\"true\"><i class=\"fa fa-bitbucket\"></i></a>";
+
+                        return buttons;
+                                 }
+
+        } ,{},{},{}
+        ]
+
+        });
+
+        });*@
+</script>

@@ -1,0 +1,122 @@
+﻿@model HRMS.Models.UserLoanApplication
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserLoanApplication", "tbUserLoanApplication", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "UserLoanApplication", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserLoanApplication" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit User Loan Application</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LoanTypeId, new { @class = "" })
+                                @Html.DropDownList("LoanTypeId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/LoanType/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LoanStatusId, new { @class = "" })
+                                @Html.DropDownList("LoanStatusId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/ApplicationStatus/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApplicationDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ApplicationDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PossibleDisburseDate, new { @class = "" })
+                                @Html.EditorFor(model => model.PossibleDisburseDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#PossibleDisburseDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxAmountAllowed, new { @class = "" })
+                                @Html.EditorFor(model => model.MaxAmountAllowed)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LoanAmountApplied, new { @class = "" })
+                                @Html.EditorFor(model => model.LoanAmountApplied)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoOfInstallment, new { @class = "" })
+                                @Html.EditorFor(model => model.NoOfInstallment)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InstallmentAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.InstallmentAmount)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "" })
+                                @Html.EditorFor(model => model.Description)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsApproved, new { @class = "" })
+                                @Html.EditorFor(model => model.IsApproved)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApprovedBy, new { @class = "" })
+                                @Html.EditorFor(model => model.ApprovedBy)
+                            </div>
+                            @Html.Hidden("DateAdded", DateTime.Now.Date)
+                            @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

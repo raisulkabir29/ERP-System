@@ -1,0 +1,331 @@
+@model HRMS.Models.UserLeaveApplication
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserLeaveApplication", "tbUserLeaveApplication", true, "Action Successfully Executed")
+
+ 
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () { 
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+
+        $(function () {
+            //var selectedStartTimeText = $("select#StartTime option:selected").text();
+            var selectedStartTimeVal = $("select#StartTime option:selected").val();
+            var selectedEndTimeVal = $("select#EndTime option:selected").val();
+            //alert(selectedStartTimeVal);
+            //alert(selectedEndTimeVal);
+
+            var selectedStartTimeValArr = selectedStartTimeVal.split(':');
+            //console.log(selectedStartTimeValArr);
+            var selectedEndTimeValArr = selectedEndTimeVal.split(':');
+            //console.log(selectedEndTimeValArr);
+
+            //alert(selectedEndTimeValArr[0]);
+            //alert(selectedEndTimeValArr[1]);
+
+            if (selectedEndTimeValArr[0] > selectedStartTimeValArr[0] || selectedEndTimeValArr[0] == selectedStartTimeValArr[0]) {
+                var SHHours = selectedEndTimeValArr[0] - selectedStartTimeValArr[0];
+                var SHMins = selectedEndTimeValArr[1] - selectedStartTimeValArr[1];
+                SHMins = SHMins.toString().replace('-', '');
+                SHMins = parseInt(SHMins);
+
+                if (SHHours != 0 && SHMins == 0) {
+
+                    var SLTotalTime = SHHours + "hr";
+
+                } else if (SHHours == 0 && SHMins != 0) {
+
+                    var SLTotalTime = SHMins + "min";
+
+                } else if (SHHours != 0 || SHMins != 0) {
+
+                    var SLTotalTime = SHHours + "hr " + SHMins + "min";
+
+                }
+                $('#ShortLeaveHours').val(SLTotalTime); 
+                //alert(SLTotalTime);
+
+                //var sVal = '234';                
+                //var iNum = parseInt(sVal); //Output will be 234.
+
+                //alert(SHHours);
+                //alert(SHMins);
+            } else {
+                alert('End time must be higher than start time');
+            }
+
+            $("select#StartTime").change(function () {
+                var selectedStartTimeVal = $(this).children("option:selected").val();
+                //alert("You have selected the Start Time - " + selectedStartTimeVal);
+            });
+            $("select#EndTime").change(function () {
+                //var selectedEndTimeVal = $(this).children("option:selected").val();
+                //alert("You have selected the End Time - " + selectedEndTimeVal);
+
+                var selectedStartTimeVal = $("select#StartTime option:selected").val();
+                var selectedEndTimeVal = $("select#EndTime option:selected").val();
+
+                var selectedStartTimeValArr = selectedStartTimeVal.split(':');
+                var selectedEndTimeValArr = selectedEndTimeVal.split(':');
+
+                if (selectedEndTimeValArr[0] > selectedStartTimeValArr[0] || selectedEndTimeValArr[0] == selectedStartTimeValArr[0]) {
+                    var SHHours = selectedEndTimeValArr[0] - selectedStartTimeValArr[0];
+                    var SHMins = selectedEndTimeValArr[1] - selectedStartTimeValArr[1];
+                    SHMins = SHMins.toString().replace('-', '');
+                    SHMins = parseInt(SHMins);
+
+                    if (SHHours != 0 && SHMins == 0) {
+
+                        var SLTotalTime = SHHours + "hr";
+
+                    } else if (SHHours == 0 && SHMins != 0) {
+
+                        var SLTotalTime = SHMins + "min";
+
+                    } else if (SHHours != 0 || SHMins != 0) {
+
+                        var SLTotalTime = SHHours + "hr " + SHMins + "min";
+
+                    }
+
+                    $('#ShortLeaveHours').val(SLTotalTime); 
+                    
+                } else {
+                    alert('End time must be higher than start time');
+                }
+            });
+
+            $("select#IsApproved option").each(function (e) {
+
+                var isApprovedText = $(this).text();
+                if (isApprovedText == "True" ) {
+                    $(this).text("Yes");
+                    //console.log($(this).text());
+                } else if (isApprovedText == "False") {
+                    $(this).text("No");
+                    //console.log($(this).text());
+                }
+            });
+        });
+
+</script>
+
+@using (Html.BeginForm("Edit", "UserLeaveApplication", FormMethod.Post, new { enctype = "multipart/form-data",id = "frmUserLeaveApplication"  }))
+{
+    @Html.AntiForgeryToken()
+
+        <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit UserLeaveApplication</h3>
+                    </div> 
+                    <!-- form start -->
+  
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                                @Html.ValidationMessage("UserId", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveTypeId, new { @class = "" })
+                                @Html.DropDownList("LeaveTypeId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/LeaveType/Create", "AddMore", "")
+                                @Html.ValidationMessage("LeaveTypeId", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveActiveFrom, new { @class = "" })
+                                @Html.EditorFor(model => model.LeaveActiveFrom, new { htmlAttributes = new { @class = "" } })
+                                @Html.ValidationMessage("LeaveActiveFrom", "", new { @class = "text-danger" })
+                                <script>$(function () { $("#LeaveActiveFrom").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeaveActiveTo, new { @class = "" })
+                                @Html.EditorFor(model => model.LeaveActiveTo, new { htmlAttributes = new { @class = "" } })
+                                @Html.ValidationMessage("LeaveActiveTo", "", new { @class = "text-danger" })
+                                <script>$(function () { $("#LeaveActiveTo").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.StartTime, new { @class = "" })
+                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "" } })*@
+
+
+                                @Html.LabelFor(model => model.StartTime, new { @class = "" })
+                                @Html.DropDownList("StartTime", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "--Select--", Value="0"  },
+                                        new SelectListItem {Text = "08:00", Value="08:00"  },
+                                        new SelectListItem {Text = "08:30", Value="08:30"  },
+                                        new SelectListItem {Text = "09:00", Value="09:00"  },
+                                        new SelectListItem {Text = "09:30", Value="09:30"  },
+                                        new SelectListItem {Text = "10:00", Value="10:00"  },
+                                        new SelectListItem {Text = "10:30", Value="10:30"  },
+                                        new SelectListItem {Text = "11:00", Value="11:00"  },
+                                        new SelectListItem {Text = "11:30", Value="11:30"  },
+                                        new SelectListItem {Text = "12:00", Value="12:00"  },
+                                        new SelectListItem {Text = "12:30", Value="12:30"  },
+                                        new SelectListItem {Text = "13:00", Value="13:00"  },
+                                        new SelectListItem {Text = "13:30", Value="13:30"  },
+                                        new SelectListItem {Text = "14:00", Value="14:00"  },
+                                        new SelectListItem {Text = "14:30", Value="14:30"  },
+                                        new SelectListItem {Text = "15:00", Value="15:00"  },
+                                        new SelectListItem {Text = "15:30", Value="15:30"  },
+                                        new SelectListItem {Text = "16:00", Value="16:00"  },
+                                        new SelectListItem {Text = "16:30", Value="16:30"  },
+                                        new SelectListItem {Text = "17:00", Value="17:00"  },
+                                        new SelectListItem {Text = "17:30", Value="17:30"  },
+                                        new SelectListItem {Text = "18:00", Value="18:00"  },
+                                        new SelectListItem {Text = "18:30", Value="18:30"  },
+                                        new SelectListItem {Text = "19:00", Value="19:00"  },
+                                        new SelectListItem {Text = "19:30", Value="19:30"  },
+                                        new SelectListItem {Text = "20:00", Value="20:00"  },
+                                        new SelectListItem {Text = "20:30", Value="20:30"  },
+                                        new SelectListItem {Text = "21:00", Value="21:00"  },
+                                        new SelectListItem {Text = "21:30", Value="21:30"  },
+                                        new SelectListItem {Text = "22:00", Value="22:00"  }
+                                    })
+                            </div>
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.EndTime, new { @class = "" })
+                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "" } })*@
+
+                                @Html.LabelFor(model => model.EndTime, new { @class = "" })
+                                @Html.DropDownList("EndTime", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "--Select--", Value="0"  },
+                                        new SelectListItem {Text = "08:00", Value="08:00"  },
+                                        new SelectListItem {Text = "08:30", Value="08:30"  },
+                                        new SelectListItem {Text = "09:00", Value="09:00"  },
+                                        new SelectListItem {Text = "09:30", Value="09:30"  },
+                                        new SelectListItem {Text = "10:00", Value="10:00"  },
+                                        new SelectListItem {Text = "10:30", Value="10:30"  },
+                                        new SelectListItem {Text = "11:00", Value="11:00"  },
+                                        new SelectListItem {Text = "11:30", Value="11:30"  },
+                                        new SelectListItem {Text = "12:00", Value="12:00"  },
+                                        new SelectListItem {Text = "12:30", Value="12:30"  },
+                                        new SelectListItem {Text = "13:00", Value="13:00"  },
+                                        new SelectListItem {Text = "13:30", Value="13:30"  },
+                                        new SelectListItem {Text = "14:00", Value="14:00"  },
+                                        new SelectListItem {Text = "14:30", Value="14:30"  },
+                                        new SelectListItem {Text = "15:00", Value="15:00"  },
+                                        new SelectListItem {Text = "15:30", Value="15:30"  },
+                                        new SelectListItem {Text = "16:00", Value="16:00"  },
+                                        new SelectListItem {Text = "16:30", Value="16:30"  },
+                                        new SelectListItem {Text = "17:00", Value="17:00"  },
+                                        new SelectListItem {Text = "17:30", Value="17:30"  },
+                                        new SelectListItem {Text = "18:00", Value="18:00"  },
+                                        new SelectListItem {Text = "18:30", Value="18:30"  },
+                                        new SelectListItem {Text = "19:00", Value="19:00"  },
+                                        new SelectListItem {Text = "19:30", Value="19:30"  },
+                                        new SelectListItem {Text = "20:00", Value="20:00"  },
+                                        new SelectListItem {Text = "20:30", Value="20:30"  },
+                                        new SelectListItem {Text = "21:00", Value="21:00"  },
+                                        new SelectListItem {Text = "21:30", Value="21:30"  },
+                                        new SelectListItem {Text = "22:00", Value="22:00"  }
+                                    })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShortLeaveHours, new { @class = "" })
+                                @*@Html.EditorFor(model => model.ShortLeaveHours)*@
+                                @Html.EditorFor(model => model.ShortLeaveHours, new { htmlAttributes = new { @class = "", @readonly = "readonly", placeholder = "This field will be calculated"} })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApprovedBy, new { @class = "" })
+                                @Html.DropDownList("ApprovedBy", " -Select- ")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ForwardedTo, new { @class = "" })
+                                @Html.DropDownList("ForwardedTo", " -Select- ")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsApproved, new { @class = "" })
+                                @Html.EditorFor(model => model.IsApproved)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                                @Html.ValidationMessage("Year", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                                @Html.ValidationMessage("Month", "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApplicationDate, new { @class = "" })
+                                @Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#ApplicationDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoOfDays, new { @class = "" })
+                                @Html.EditorFor(model => model.NoOfDays)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LeavePurpose, new { @class = "" })
+                                @Html.EditorFor(model => model.LeavePurpose)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ApplicationStatusId, new { @class = "" })
+                                @Html.DropDownList("ApplicationStatusId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/ApplicationStatus/Create", "AddMore", "")
+                                @Html.ValidationMessage("ApplicationStatusId", "", new { @class = "text-danger" })
+                            </div>
+                            @*<div class="form-group">
+            @Html.Hidden("DateAdded", DateTime.Now)
+        </div>*@
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save","submit","btn btn-primary","") 
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+

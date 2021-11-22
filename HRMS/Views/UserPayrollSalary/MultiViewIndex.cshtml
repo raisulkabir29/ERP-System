@@ -1,0 +1,214 @@
+@model HRMS.Models.UserPayrollSalary
+@{
+    ViewBag.Title = "Advance Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/DataTable/new/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTable/new/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section ScriptsOrCss
+{
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/tabs/Jquery-ui.js"></script>
+    <link href="~/Content/tabs/JqueryUi.css" rel="stylesheet" />
+    <script>
+        $(function () {
+
+            $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+            $("#opener").click(function () {
+                $("#dialog").dialog("open");
+            });
+
+        });
+    </script>
+
+    <style>
+        table {
+            width: 100% !important;
+        }
+
+        .ui-tabs-vertical {
+            width: 100%;
+        }
+
+            .ui-tabs-vertical .ui-tabs-nav {
+                padding: .2em .1em .2em .2em;
+                float: left;
+                width: 19%;
+            }
+
+                .ui-tabs-vertical .ui-tabs-nav li {
+                    clear: left;
+                    width: 100%;
+                    border-bottom-width: 1px !important;
+                    border-right-width: 0 !important;
+                    margin: 0 -1px .2em 0;
+                }
+
+                    .ui-tabs-vertical .ui-tabs-nav li a {
+                        display: block;
+                    }
+
+                    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                        padding-bottom: 0;
+                        padding-right: .1em;
+                        border-right-width: 1px;
+                    }
+
+            .ui-tabs-vertical .ui-tabs-panel {
+                padding: 1em;
+                float: right;
+                width: 80%;
+            }
+    </style>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+</section>
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+</script>
+
+@Html.StarkAjaxFormSubmiter("frmUserPayrollSalary", "tbUserPayrollSalary", true, "Action Successfully Executed")
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid box-primary">
+
+
+                <div id="tabs">
+                    @*<ul>
+                        <li><a href="#EditThis">Edit</a></li>
+                    </ul>*@
+                    <div id="EditThis" style="height:700px;overflow:auto;">
+                        @using (Html.BeginForm("MultiViewIndex", "UserPayrollSalary", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUserPayrollSalary" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (ViewBag.IsWorking > 0)
+                            {
+                                <section class="content">
+                                    <!-- Small boxes (Stat box) -->
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="box box-solid box-primary">
+                                                <div class="box-header">
+                                                    <h3 class="box-title">Edit UserPayrollSalary Info</h3>
+                                                </div><!-- /.box-header -->
+                                                <!-- form start -->
+                                                <div role="form">
+                                                    <div class="box-body">
+                                                        <div class="alert alert-success alert-dismissable" id="dvMsg" style="display:@(TempData["Display"]==null ? "none" : "")">
+                                                            <i class="fa fa-apple"></i>
+                                                            <b> Update Successfully. </b>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                                            @Html.DropDownList("UserId", " -Select- ")
+                                                            @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.HouseRentAllowance, new { @class = "" })
+                                                            @Html.EditorFor(model => model.HouseRentAllowance)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.MedicalAllowance, new { @class = "" })
+                                                            @Html.EditorFor(model => model.MedicalAllowance)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.TravellingAllowance, new { @class = "" })
+                                                            @Html.EditorFor(model => model.TravellingAllowance)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.DearnessAllowance, new { @class = "" })
+                                                            @Html.EditorFor(model => model.DearnessAllowance)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Basic, new { @class = "" })
+                                                            @Html.EditorFor(model => model.Basic)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.SpecialAllowance, new { @class = "" })
+                                                            @Html.EditorFor(model => model.SpecialAllowance)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Bonus, new { @class = "" })
+                                                            @Html.EditorFor(model => model.Bonus)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ProvidentFund, new { @class = "" })
+                                                            @Html.EditorFor(model => model.ProvidentFund)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ProfessionalTax, new { @class = "" })
+                                                            <div class="input-group">
+                                                                <input type="text" id="ProfessionalTax" name="ProfessionalTax" class="form-control">
+                                                                <span class="input-group-addon"><strong>%</strong></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.LunchRecovery, new { @class = "" })
+                                                            @Html.EditorFor(model => model.LunchRecovery)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.TransportRecovery, new { @class = "" })
+                                                            @Html.EditorFor(model => model.TransportRecovery)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.IncomeTax, new { @class = "" })
+                                                            <div class="input-group">
+                                                                <input type="text" id="ProfessionalTax" name="ProfessionalTax" class="form-control">
+                                                                <span class="input-group-addon"><strong>%</strong></span>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                                                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            }
+                        }
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

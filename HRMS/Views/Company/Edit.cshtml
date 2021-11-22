@@ -1,0 +1,117 @@
+@model HRMS.Models.Company
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmCompany", "tbCompany", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+            //$(function () {
+            //    $('select').searchableOptionList({
+            //        maxHeight: '250px'
+            //    });
+            //});
+</script>
+
+@using (Html.BeginForm("Edit", "Company", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCompany" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Company</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "" })
+                                @Html.EditorFor(model => model.Name)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.About, new { @class = "" })
+                                @Html.TextAreaFor(model => model.About, new { @class = "ckeditor" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsActive, new { @class = "" })
+                                @Html.EditorFor(model => model.IsActive)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Website, new { @class = "" })
+                                @Html.EditorFor(model => model.Website)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone, new { @class = "" })
+                                @Html.EditorFor(model => model.Phone)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Fax, new { @class = "" })
+                                @Html.EditorFor(model => model.Fax)
+                            </div>
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.MapLatitude, new { @class = "" })
+                                @Html.EditorFor(model => model.MapLatitude)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MapLongitude, new { @class = "" })
+                                @Html.EditorFor(model => model.MapLongitude)
+                            </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TaxNumberOrEIN, new { @class = "" })
+                                @Html.EditorFor(model => model.TaxNumberOrEIN)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Logo, new { @class = "" })
+                                <input id="Logo" name="Logo" type="file" />
+                                <input type="hidden" name="HideImage1" value="@Model.Logo" />
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address, new { @class = "" })
+                                @Html.EditorFor(model => model.Address)
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now.TimeOfDay)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

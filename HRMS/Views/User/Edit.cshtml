@@ -1,0 +1,148 @@
+@model HRMS.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUser", "tbUser", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+    //$(function () {
+    //    $('select').searchableOptionList({
+    //        maxHeight: '250px'
+    //    });
+    //});
+
+    $(function () {
+        $('#Password').attr('type', 'password');
+    });
+
+    function ShowHidePwd2() {
+        var x = document.getElementById("Password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+</script>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUser" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit User</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserName, new { @class = "" })
+                                @Html.EditorFor(model => model.UserName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, new { @class = "" })
+                                @Html.EditorFor(model => model.Password)
+                                <br>
+                                <input type="checkbox" onclick="ShowHidePwd2()">Show/Hide Password
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomId, new { @class = "" })
+                                @Html.EditorFor(model => model.CustomId)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.GenderId, new { @class = "" })
+                                @Html.DropDownList("GenderId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/Gender/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateOfBirth, new { @class = "" })
+                                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#DateOfBirth").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BloodGroup, new { @class = "" })
+                                @Html.EditorFor(model => model.BloodGroup)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nationality, new { @class = "" })
+                                @Html.EditorFor(model => model.Nationality)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName, new { @class = "" })
+                                @Html.EditorFor(model => model.FirstName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName, new { @class = "" })
+                                @Html.EditorFor(model => model.LastName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CanLogin, new { @class = "" })
+                                @Html.EditorFor(model => model.CanLogin)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsActive, new { @class = "" })
+                                @Html.EditorFor(model => model.IsActive)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProfilePicture, new { @class = "" })
+                                <input id="ProfilePicture" name="ProfilePicture" type="file" />
+                                <input type="hidden" name="HideImage1" value="@Model.ProfilePicture" />
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OfficeId, new { @class = "" })
+                                @Html.DropDownList("OfficeId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/Office/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NationalId, new { @class = "" })
+                                @Html.EditorFor(model => model.NationalId)
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @Html.Hidden("ModifiedDate", DateTime.Now)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+

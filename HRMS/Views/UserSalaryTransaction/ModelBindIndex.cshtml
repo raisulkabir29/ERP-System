@@ -1,0 +1,128 @@
+@model IEnumerable<HRMS.Models.UserSalaryTransaction>
+
+    @{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>UserSalaryTransaction List </small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">User Records</h3>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body table-responsive">
+
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                        <br /><br />
+                        <div class="widget-sec">
+                            <div class="streaming-table">
+                                <span id="found" class="label label-info"></span>
+
+                                <table id="tbPages" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+
+                                            <th> Id  </th>
+                                            <th> User  </th>
+                                            <th> House Rent Allowance  </th>
+                                            <th> Medical Allowance  </th>
+                                            <th> Travelling Allowance  </th>
+                                            <th> Dearness Allowance  </th>
+                                            <th> Basic  </th>
+                                            <th> Special Allowance  </th>
+                                            <th> Bonus  </th>
+                                            <th> Provident Fund  </th>
+                                            <th> Professional Tax  </th>
+                                            <th> Lunch Recovery  </th>
+                                            <th> Transport Recovery  </th>
+                                            <th> Income Tax  </th>
+                                            <th> Total Amount  </th>
+                                            <th> Total Deduction  </th>
+                                            <th> Net Amount  </th>
+                                            <th> On Date  </th>
+                                            <th> Remarks  </th>
+                                            <th> Date Added  </th>
+                                            <th> Added By  </th>
+                                            <th> OT Or NOT </th>
+                                            <th> Conveyance Allowance </th>
+                                            <th> Food Allowance </th>
+                                            <th> Performance Allowance </th>
+                                            <th> Attendance Bonus </th>
+                                            <th> Stamp </th>
+                                            <th> Gross </th>
+                                            <th> Year </th>
+                                            <th> Month </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model) 
+                                        {
+                                            <tr>
+                                            <td> @Html.DisplayFor(modelItem => item.Id) </td>                                            <td> @Html.DisplayFor(modelItem => item.User_UserId.UserName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.HouseRentAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.MedicalAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.TravellingAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.DearnessAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Basic) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.SpecialAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Bonus) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.ProvidentFund) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.ProfessionalTax) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.LunchRecovery) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.TransportRecovery) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.IncomeTax) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.TotalAmount) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.TotalDeduction) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NetAmount) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.OnDate) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Remarks) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.DateAdded) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.AddedBy) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.OTNOT) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.ConveyanceAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.FoodAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.PerformanceAllowance) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.AttendanceBonus) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Stamp) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Gross) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Year) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Month) </td>
+
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
+                                                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                            </td>
+
+                                            </tr>
+                                       }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="box-footer">
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+

@@ -1,0 +1,76 @@
+@model HRMS.Models.UserAttendence
+
+@{
+    ViewBag.Title = "Details";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        <small>Details</small>
+    </h1>
+</section>
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of UserAttendence</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>CompanyOfficeId</td>
+                                    <td>@Html.DisplayFor(model => model.CompanyOfficeId)</td>
+                                </tr>
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.UserId)</td>
+                                </tr>
+                                <tr>
+                                    <td>PunchIn</td>
+                                    <td>@Html.DisplayFor(model => model.PunchIn)</td>
+                                </tr>
+                                <tr>
+                                    <td>PunchOut</td>
+                                    <td>@Html.DisplayFor(model => model.PunchOut)</td>
+                                </tr>
+                                <tr>
+                                    <td>DateOfAttendence</td>
+                                    <td>@Html.DisplayFor(model => model.DateOfAttendence)</td>
+                                </tr>
+                                <tr>
+                                    <td>IsPresent</td>
+                                    <td>@Html.DisplayFor(model => model.IsPresent)</td>
+                                </tr>
+                                <tr>
+                                    <td>AnyRemarks</td>
+                                    <td>@Html.DisplayFor(model => model.AnyRemarks)</td>
+                                </tr>
+
+ 
+                            </table>
+                            <div class="box-footer">
+                                @Ajax.ModalDialogActionLink("Edit", "Edit/" + Model.Id, "Edit", "btn btn-primary") 
+                                 
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

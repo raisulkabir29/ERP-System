@@ -1,0 +1,436 @@
+@model HRMS.ModelDto.HomeDto
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">*@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+<style>
+    h4 {
+        font-weight: bold !important;
+        font-size: 25px !important;
+    }
+</style>
+
+
+@*<section class="content-header" style="background-color: #ffffff; background-image: url(@Url.Content("~/Content/wood-pattern.png"));text-align:center;font-weight: bold;font-size: 50px;padding: 0;">*@
+<section class="content-header" style="background-color: #ffffff;text-align:center;font-weight: bold;font-size: 50px;padding: 0;">
+<span style="background-clip: text; -moz-background-clip: text; -webkit-background-clip: text; text-shadow: 0px 2px 3px rgba(255,255,255,0.5); color: transparent; background-color: #565656; ">Dashboard</span>
+</section>
+
+<!-- Main content -->
+@*<section class="content" style="background-color: #000000; background-image: url(@Url.Content("~/Content/wood-pattern.png"));">*@
+<section class="content" style="background-color: #ffffff;">
+
+    <!-- Small boxes (Stat box) -->
+
+    <div class="row">
+
+        @if (@Env.GetUserInfo("roleid") == "2")
+        {
+            <div class="col-lg-3 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-green">
+
+                    <div class="inner">
+
+                        <h3>  @Model.User </h3>
+                        <p>Total Users Count</p>
+
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <a class="small-box-footer" href="~/User/">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>  @Model.Role </h3>
+                        <p>Total Roles</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-newspaper-o"></i>
+                    </div>
+                    <a class="small-box-footer" href="~/Role/">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div><!-- ./col -->
+
+
+            <div class="col-lg-2 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-black">
+                    <div class="inner">
+                        <h3>@Model.Offce</h3>
+                        <p>Total Office</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <a class="small-box-footer" href="~/Office/">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-2 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@Model.Department</h3>
+                        <p>Total Department</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <a class="small-box-footer" href="~/Department/">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-2 col-xs-3">
+                <!-- small box -->
+                <div class="small-box bg-gray">
+                    <div class="inner">
+                        <h3>@Model.Interviews</h3>
+                        <p>Today's InterView</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <a class="small-box-footer" href="~/Interview/"> <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div><!-- ./col -->
+        }
+    </div><!-- /.row -->
+
+
+    @if (@Env.GetUserInfo("roleid") == "2")
+    {
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="fa fa-bar-chart-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Today's Expense</span>
+                        <span class="info-box-number"> @Model.Expense</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Today's Present Employee</span>
+                        <span class="info-box-number">@Model.PresentEmployee </span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-thumbs-o-down"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Today's Absent Employee</span>
+                        <span class="info-box-number">@Model.AbsentEmployees</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-phone"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Employees On Leave</span>
+                        <span class="info-box-number">@Model.LeaveEmployess</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+    }
+
+
+    @*@if (@Env.GetUserInfo("roleid") == "2")
+    {*@
+        <div class="row">
+
+
+            <div class="col-md-5">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">User And Role</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div id="bindPieChart"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-7">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">User Details</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <button class="btn btn-primary btn-xs" id="plain">Plain</button>
+                        <button class="btn btn-info btn-xs" id="inverted">Inverted</button>
+                        <button class="btn btn-success btn-xs" id="polar">Polar</button>
+                        <div class="chart" id="otherInfo"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    @*}*@
+
+    @*@if (@Env.GetUserInfo("roleid") == "2")
+    {*@
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                    <div class="box-header with-border">
+                        <h3 style="float:left;margin:0px;">Last 7 Days Sale </h3>
+                        <select id="selectLastDays" style="float:left;width:130px;margin-left:20px;">
+                            <option value="7">Last 7 Day</option>
+                            <option value="30">Last 30 Day</option>
+                            <option value="60">Last 60 Day</option>
+                            <option value="90">Last 90 Day</option>
+                            <option value="120">Last 120 Day</option>
+                        </select>
+
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="line-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">User Chart</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="work-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    @*}*@
+
+    @if (@Env.GetUserInfo("roleid") == "2")
+    {
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-book"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Holidays(This Month)</span>
+                        <span class="info-box-number">@Model.Holidays</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-lock"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text"> Today's Announcement</span>
+                        <span class="info-box-number">@Model.Announcement</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Today's Note</span>
+                        <span class="info-box-number">@Model.Notes</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Policy</span>
+                        <span class="info-box-number">@Model.Policy</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+    }
+</section>
+
+<script type="text/javascript">
+    $(function () {
+        "use strict";
+
+        //DONUT CHART
+        var donut = new Morris.Donut({
+            element: 'work-chart',
+            resize: true,
+            colors: ["#00a65a", "#00e765", "#3c8dbc"],
+            data: [
+                {
+                    label: "Total User", value: "@Model.User"
+                },
+                {
+                    label: "Total Role", value: "@Model.Role"
+                },
+                {
+                    label: "Total Menu", value: "@Model.Menu"
+                }
+            ],
+            hideHover: 'auto'
+        });
+
+
+        BindLastRegister(7);
+        //there i pass day of last
+
+        $("#selectLastDays").on("change", function () {
+            var svalue = $("#selectLastDays").val();
+            BindLastRegister(svalue);
+        });
+
+    });
+
+
+    var chart = Highcharts.chart('otherInfo', {
+
+        title: {
+            text: 'Other Information'
+        },
+
+        xAxis: {
+            categories: ['User', 'Role', 'Menu']
+        },
+
+        series: [{
+            name: 'Total Count',
+            type: 'column',
+            colorByPoint: true,
+            data: [@Model.User,@Model.Role,@Model.Menu],
+            showInLegend: false
+        }], chart: {
+            inverted: true,
+            polar: false
+        }
+
+    });
+
+
+    $('#plain').click(function () {
+        chart.update({
+            chart: { inverted: false, polar: false },
+            subtitle: { text: 'Plain' }
+        });
+    });
+
+    $('#inverted').click(function () {
+        chart.update({
+            chart: { inverted: true, polar: false },
+            subtitle: { text: 'Inverted' }
+        });
+    });
+
+    $('#polar').click(function () {
+        chart.update({
+            chart: { inverted: false, polar: true },
+            subtitle: { text: 'Polar' }
+        });
+    });
+
+
+
+    Highcharts.chart('bindPieChart', {
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 33
+            }
+        },
+        title: {
+            text: 'Role & User'
+        },
+        //subtitle: {
+        //    text: 'g'
+        //},
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: 'Total Count',
+            data: [
+                ['User', @Model.User],
+                ['Role', @Model.Role],
+            ]
+        }]
+    });
+
+    function BindLastRegister(days) {
+        $("#line-chart").html("");
+        $.ajax({
+            url: "@Url.Content("~/Home/LineChart")",
+            type: "Post",
+            data: { 'lastDay': days },
+            dataType: 'json',//json
+            success: function (data) {
+                Morris.Line({
+                    element: 'line-chart',
+                    resize: true,
+                    data: data,
+                    xkey: 'label',
+                    ykeys: ['value'],
+                    labels: ['Count'],
+                    lineColors: ['#00a65a'],
+                    hideHover: 'auto'
+                });
+            }
+        });
+    }
+
+</script>

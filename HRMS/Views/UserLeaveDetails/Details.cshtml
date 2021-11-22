@@ -1,0 +1,77 @@
+﻿@model HRMS.Models.UserLeaveDetails
+
+@{
+    ViewBag.Title = "Details";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        @*<small>Details</small>*@
+    </h1>
+</section>
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of User Leave Details</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.UserId)</td>
+                                </tr>
+                                <tr>
+                                    <td>LeaveTypeId</td>
+                                    <td>@Html.DisplayFor(model => model.LeaveTypeId)</td>
+                                </tr>
+                                <tr>
+                                    <td>LeaveStatusId</td>
+                                    <td>@Html.DisplayFor(model => model.LeaveStatusId)</td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td>@Html.DisplayFor(model => model.Year)</td>
+                                </tr>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>@Html.DisplayFor(model => model.Month)</td>
+                                </tr>
+                                <tr>
+                                    <td>TotalUsedLeavesInMonth</td>
+                                    <td>@Html.DisplayFor(model => model.TotUsedLeavesInMonth)</td>
+                                </tr>
+                                <tr>
+                                    <td>TotalUsedLeavesPerYear</td>
+                                    <td>@Html.DisplayFor(model => model.TotUsedLeavesPerYear)</td>
+                                </tr>
+                                <tr>
+                                    <td>TotalRemainingLeavesPerYear</td>
+                                    <td>@Html.DisplayFor(model => model.TotRemainingLeavesPerYear)</td>
+                                </tr>
+
+
+                            </table>
+                            <div class="box-footer">
+                                @Ajax.ModalDialogActionLink("Edit", "Edit/" + Model.Id, "Edit", "btn btn-primary")
+
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

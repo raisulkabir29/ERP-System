@@ -1,0 +1,222 @@
+﻿@model HRMS.Models.UserRefNominee
+
+@{
+    ViewBag.Title = "Are you sure you want to delete";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+
+@Html.StarkAjaxFormSubmiter("frmUserRefNominee", "tbUserRefNominee", true, "Action Successfully Executed")
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">User Reference & Nominee</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.User_UserId.UserName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Current Guardian Name</td>
+                                    <td>@Html.DisplayFor(model => model.CurrentGuardianName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Recommender</td>
+                                    <td>@Html.DisplayFor(model => model.Recommender)</td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Contact Name</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Relation with Emergency Contact</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactRel)</td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Contact Address Village</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactAddrVillage)</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Emergency Contact Address PO</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactAddrPO)</td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Contact Address Thana</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactAddrThana)</td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Contact Address District</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactAddrDistrict)</td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Contact Phone No</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactPhNo)</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Emergency Contact Mb No</td>
+                                    <td>@Html.DisplayFor(model => model.EmergContactMbNo)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Name</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1Name)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Company</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1Company)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Designation</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1Designation)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Contact No</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1ContactNo)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Address Village</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1AddrVillage)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Address PO</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1AddrPO)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Address Thana</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1AddrThana)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference1 Address District</td>
+                                    <td>@Html.DisplayFor(model => model.Reference1AddrDistrict)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Name</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2Name)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Company</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2Company)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Designation</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2Designation)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Contact No</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2ContactNo)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Address Village</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2AddrVillage)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Address PO</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2AddrPO)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Address Thana</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2AddrThana)</td>
+                                </tr>
+                                <tr>
+                                    <td>Reference2 Address District</td>
+                                    <td>@Html.DisplayFor(model => model.Reference2AddrDistrict)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Name</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Father Name</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeFatherName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Mother Name</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeMotherName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Profession</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeProfession)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Contact Phone No/td>
+                                    <td>@Html.DisplayFor(model => model.NomineeContactPhNo)</td>
+                                </tr>
+                                <tr>
+                                    <td>Relation with Nominee</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeRel)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Address Village</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeAddrVillage)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Address PO</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeAddrPO)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Address Union</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeAddrUnion)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Address Upazilla</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeAddrUpazilla)</td>
+                                </tr>
+                                <tr>
+                                    <td>Nominee Address District</td>
+                                    <td>@Html.DisplayFor(model => model.NomineeAddrDistrict)</td>
+                                </tr>
+                                <tr>
+                                    <td>Birth Certificate</td>
+                                    <td>@Html.DisplayFor(model => model.BirthCertificate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Police Verification</td>
+                                    <td>@Html.DisplayFor(model => model.PoliceVerification)</td>
+                                </tr>
+
+
+                            </table>
+                            <div class="box-footer">
+
+                                @using (Html.BeginForm("Delete", "UserRefNominee", FormMethod.Post, new { id = "frmUserRefNominee" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.StarkInputButtion("Delete", "submit", "btn btn-danger", "")
+                                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary", @style = "margin-left:5px;" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

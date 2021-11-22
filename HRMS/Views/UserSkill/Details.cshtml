@@ -1,0 +1,75 @@
+@model HRMS.Models.UserSkill
+
+@{
+    ViewBag.Title = "Details";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        @*<small>Details</small>*@
+    </h1>
+</section>
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Detail of UserSkill</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
+
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <table class="table table-striped table-bordered">
+
+                                <tr>
+                                    <td>UserId</td>
+                                    <td>@Html.DisplayFor(model => model.User_UserId.UserName)</td>
+                                </tr>
+                                <tr>
+                                    <td>SkillName</td>
+                                    <td>@Html.DisplayFor(model => model.SkillName)</td>
+                                </tr>
+                                <tr>
+                                    <td>RateYourSelf</td>
+                                    <td>@Html.DisplayFor(model => model.RateYourSelf)</td>
+                                </tr>
+                                <tr>
+                                    <td>Machine Name</td>
+                                    <td>@Html.DisplayFor(model => model.MachineName)</td>
+                                </tr>
+                                <tr>
+                                    <td>Process</td>
+                                    <td>@Html.DisplayFor(model => model.Process)</td>
+                                </tr>
+                                <tr>
+                                    <td>Per Hour Capacity</td>
+                                    <td>@Html.DisplayFor(model => model.PerHourCapacity)</td>
+                                </tr>
+                                <tr>
+                                    <td>Date Added</td>
+                                    <td>@Html.DisplayFor(model => model.DateAdded)</td>
+                                </tr>
+                                <tr>
+                                    <td>Modified Date</td>
+                                    <td>@Html.DisplayFor(model => model.ModifiedDate)</td>
+                                </tr>
+                            </table>
+                            <div class="box-footer">
+                                @Ajax.ModalDialogActionLink("Edit", "Edit/" + Model.Id, "Edit", "btn btn-primary")
+
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

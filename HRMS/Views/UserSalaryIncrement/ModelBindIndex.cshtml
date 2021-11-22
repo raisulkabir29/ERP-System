@@ -1,0 +1,99 @@
+﻿@model IEnumerable<HRMS.Models.UserSalaryIncrement>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+        @*<small>User Overtime List </small>*@
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">User Salary Increment</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body table-responsive">
+
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                    <br /><br />
+                    <div class="widget-sec">
+                        <div class="streaming-table">
+                            <span id="found" class="label label-info"></span>
+
+                            <table id="tbPages" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        @*<th> Id  </th>*@
+                                        <th> User  </th>
+                                        <th> OT/NOT  </th>
+                                        <th> Gross Salary</th>
+                                        <th> Basic Salary  </th>
+                                        <th> IncrementPercentage  </th>
+                                        <th> Year of Increment  </th>
+                                        <th> Increment On </th>
+                                        <th> New Gross Salary  </th>
+                                        <th> New Basic Salary  </th>
+                                        <th> OvertimeRate  </th>
+                                        <th> Year  </th>
+                                        <th> Month  </th>
+                                        <th> Date Added  </th>
+                                        <th> Modified Date  </th>
+
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            @*<td> @Html.DisplayFor(modelItem => item.Id) </td>*@
+                                            <td> @Html.DisplayFor(modelItem => item.User_UserId.UserName) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.OTNOT) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.GrossSalary) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.BasicSalary) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.IncrementPercentage) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.YearOfIncrement) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.IncrementOnGrossOrBasic) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NewGrossSalary) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.NewBasicSalary) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.OvertimeRate) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Year) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Month) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.DateAdded) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.ModifiedDate) </td>
+
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="box-footer">
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

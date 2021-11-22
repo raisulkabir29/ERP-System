@@ -1,0 +1,189 @@
+@model HRMS.Models.UserSalaryTransaction
+
+@{
+    ViewBag.Title = "Create";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+ 
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmUserSalaryTransaction", "tbUserSalaryTransaction", true, "Action Successfully Executed")
+ 
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Title</small>
+            </h1>
+        </section>
+    }
+}
+<script type="text/javascript">
+        //$(function () { 
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+@using (Html.BeginForm("Create", "UserSalaryTransaction", FormMethod.Post, new { enctype = "multipart/form-data",id = "frmUserSalaryTransaction"  }))
+{
+    @Html.AntiForgeryToken()
+          <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Fill UserSalaryTransaction Form</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <div role="form">
+                        <div class="box-body">
+                              
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId"," -Select- ") 
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore","")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HouseRentAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.HouseRentAllowance)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MedicalAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.MedicalAllowance)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TravellingAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.TravellingAllowance)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DearnessAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.DearnessAllowance)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Basic, new { @class = "" })
+                                @Html.EditorFor(model => model.Basic)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SpecialAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.SpecialAllowance)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Bonus, new { @class = "" })
+                                @Html.EditorFor(model => model.Bonus)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProvidentFund, new { @class = "" })
+                                @Html.EditorFor(model => model.ProvidentFund)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProfessionalTax, new { @class = "" })
+                                <div class="input-group">
+                                    <input type="text" id="ProfessionalTax" name="ProfessionalTax" class="form-control">
+                                    <span class="input-group-addon"><strong>%</strong></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LunchRecovery, new { @class = "" })
+                                @Html.EditorFor(model => model.LunchRecovery)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TransportRecovery, new { @class = "" })
+                                @Html.EditorFor(model => model.TransportRecovery)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IncomeTax, new { @class = "" })
+                                <div class="input-group">
+                                    <input type="text" id="ProfessionalTax" name="ProfessionalTax" class="form-control">
+                                    <span class="input-group-addon"><strong>%</strong></span>
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.TotalAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalAmount)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TotalDeduction, new { @class = "" })
+                                @Html.EditorFor(model => model.TotalDeduction)  
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NetAmount, new { @class = "" })
+                                @Html.EditorFor(model => model.NetAmount)  
+                            </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OnDate, new { @class = "" }) 
+                                @Html.EditorFor(model => model.OnDate, new { htmlAttributes = new { @class = "" } })
+                                @Html.TextBox("OnDateSalary", null, new { htmlAttributes = new { @class = "" } })
+                                <script> $(function () { $("#OnDate").datepicker({ format: 'd/m/yy' }); $("#OnDateSalary").datepicker(); }); </script> 
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Remarks, new { @class = "" })
+                                @Html.TextAreaFor(model => model.Remarks, new { @class = "" }) 
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("DateAdded", DateTime.Now)
+                            </div>
+                            <div class="form-group">
+                                @Html.Hidden("AddedBy", Env.GetUserInfo("userid"))
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OTNOT, new { @class = "" })
+                                @Html.EditorFor(model => model.OTNOT)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ConveyanceAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.ConveyanceAllowance)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FoodAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.FoodAllowance)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PerformanceAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.PerformanceAllowance)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AttendanceBonus, new { @class = "" })
+                                @Html.EditorFor(model => model.AttendanceBonus)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Stamp, new { @class = "" })
+                                @Html.EditorFor(model => model.Stamp)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Gross, new { @class = "" })
+                                @Html.EditorFor(model => model.Gross)
+                            </div>	
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                            </div>
+
+
+
+                        </div>
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Create New","submit","btn btn-primary","") 
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+

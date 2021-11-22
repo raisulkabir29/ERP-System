@@ -1,0 +1,192 @@
+﻿@model HRMS.Models.EmployeeSalaryAllowances
+
+@{
+    ViewBag.Title = "Edit";
+    if (Ajax.IsThisAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@Html.StarkAjaxFormSubmiter("frmEmployeeSalaryAllowances", "tbEmployeeSalaryAllowances", true, "Action Successfully Executed")
+
+
+@{
+    if (!Ajax.IsThisAjaxRequest())
+    {
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                @*<small>@ViewBag.Title</small>*@
+            </h1>
+        </section>
+    }
+}
+
+<script type="text/javascript">
+        //$(function () {
+        //    $('select').searchableOptionList({
+        //        maxHeight: '250px'
+        //    });
+        //});
+</script>
+
+@using (Html.BeginForm("Edit", "EmployeeSalaryAllowances", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEmployeeSalaryAllowances" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Edit Employee Salary Allowances</h3>
+                    </div>
+                    <!-- form start -->
+
+                    <div role="form">
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "" })
+                                @Html.DropDownList("UserId", " -Select- ")
+                                @Html.StarkDropDownAjaxLink("/User/Create", "AddMore", "")
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, new { @class = "" })
+                                @Html.EditorFor(model => model.Year)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Month, new { @class = "" })
+                                @Html.EditorFor(model => model.Month)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OTNOT, new { @class = "" })
+                                @Html.EditorFor(model => model.OTNOT)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Gross, new { @class = "" })
+                                @Html.EditorFor(model => model.Gross)
+                            </div>
+                            @*<div class="form-group">
+            @Html.LabelFor(model => model.HRAllowanceOT, new { @class = "" })
+            @Html.EditorFor(model => model.HRAllowanceOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.HRAllowanceNOT, new { @class = "" })
+            @Html.EditorFor(model => model.HRAllowanceNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedAllowanceOT, new { @class = "" })
+            @Html.EditorFor(model => model.MedAllowanceOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedAllowanceNOT, new { @class = "" })
+            @Html.EditorFor(model => model.MedAllowanceNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConAllowanceOT, new { @class = "" })
+            @Html.EditorFor(model => model.ConAllowanceOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConAllowanceNOT, new { @class = "" })
+            @Html.EditorFor(model => model.ConAllowanceNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FoodAllowanceOT, new { @class = "" })
+            @Html.EditorFor(model => model.FoodAllowanceOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FoodAllowanceNOT, new { @class = "" })
+            @Html.EditorFor(model => model.FoodAllowanceNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PerAllowanceOT, new { @class = "" })
+            @Html.EditorFor(model => model.PerAllowanceOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PerAllowanceNOT, new { @class = "" })
+            @Html.EditorFor(model => model.PerAllowanceNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttendBonOT, new { @class = "" })
+            @Html.EditorFor(model => model.AttendBonOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttendBonNOT, new { @class = "" })
+            @Html.EditorFor(model => model.AttendBonNOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BasicOT, new { @class = "" })
+            @Html.EditorFor(model => model.BasicOT)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BasicNOT, new { @class = "" })
+            @Html.EditorFor(model => model.BasicNOT)
+        </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Basic, new { @class = "" })
+                                @*@Html.EditorFor(model => model.Basic)*@
+                                @Html.EditorFor(model => model.Basic, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HouseRentAllowance, new { @class = "" })
+                                @*@Html.EditorFor(model => model.HouseRentAllowance)*@
+                                @Html.EditorFor(model => model.HouseRentAllowance, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MedicalAllowance, new { @class = "" })
+                                @*@Html.EditorFor(model => model.MedicalAllowance)*@
+                                @Html.EditorFor(model => model.MedicalAllowance, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ConveyanceAllowance, new { @class = "" })
+                                @*@Html.EditorFor(model => model.ConveyanceAllowance)*@
+                                @Html.EditorFor(model => model.ConveyanceAllowance, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FoodAllowance, new { @class = "" })
+                                @*@Html.EditorFor(model => model.FoodAllowance)*@
+                                @Html.EditorFor(model => model.FoodAllowance, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PerformanceAllowance, new { @class = "" })
+                                @Html.EditorFor(model => model.PerformanceAllowance)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AttendanceBonus, new { @class = "" })
+                                @Html.EditorFor(model => model.AttendanceBonus)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SalaryPayableDate, new { @class = "" })
+                                @Html.EditorFor(model => model.SalaryPayableDate, new { htmlAttributes = new { @class = "" } })
+                                <script>$(function () { $("#SalaryPayableDate").datepicker({ format: 'd/m/yy' }); });</script>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Remarks, new { @class = "" })
+                                @Html.EditorFor(model => model.Remarks)
+                            </div>
+                            @Html.HiddenFor(model => model.DateAdded)
+                            @Html.HiddenFor(model => model.AddedBy)
+                            @*@Html.Hidden("ModifiedDate", DateTime.Now.Date)*@
+                            @Html.Hidden("DateAdded", DateTime.Now.TimeOfDay)
+                            @Html.Hidden("ModifiedBy", Env.GetUserInfo("userid"))
+
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.StarkInputButtion("Save", "submit", "btn btn-primary", "")
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
